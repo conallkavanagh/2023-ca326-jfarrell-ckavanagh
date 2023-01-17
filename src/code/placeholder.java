@@ -16,10 +16,10 @@ public class placeholder
 		InputStream is = System.in;
 		if (inputFile != null)
 			is = new FileInputStream (inputFile);
-			
-		drawLexer lexer = new drawLexer (CharStreams.fromStream (is));
+		
+		placeholderLexer lexer = new placeholderLexer (CharStreams.fromStream (is));
 		CommonTokenStream tokens = new CommonTokenStream (lexer);
-		drawParser parser = new drawParser (tokens);
+		placeholderParser parser = new placeholderParser (tokens);
 		ParseTree tree = parser.prog ();
 	}
 }
