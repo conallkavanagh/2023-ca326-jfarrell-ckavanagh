@@ -28,37 +28,73 @@ public class placeholderBaseListener implements placeholderListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInit(placeholderParser.InitContext ctx) { }
+	@Override public void enterStm(placeholderParser.StmContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInit(placeholderParser.InitContext ctx) { }
+	@Override public void exitStm(placeholderParser.StmContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrint(placeholderParser.PrintContext ctx) { }
+	@Override public void enterExpression(placeholderParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrint(placeholderParser.PrintContext ctx) { }
+	@Override public void exitExpression(placeholderParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoop(placeholderParser.LoopContext ctx) { }
+	@Override public void enterTerm(placeholderParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoop(placeholderParser.LoopContext ctx) { }
+	@Override public void exitTerm(placeholderParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdentifier(placeholderParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentifier(placeholderParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfstmt(placeholderParser.IfstmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfstmt(placeholderParser.IfstmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignstmt(placeholderParser.AssignstmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignstmt(placeholderParser.AssignstmtContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

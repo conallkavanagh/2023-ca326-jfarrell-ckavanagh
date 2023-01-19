@@ -17,39 +17,63 @@ public interface placeholderListener extends ParseTreeListener {
 	 */
 	void exitProg(placeholderParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code init}
-	 * labeled alternative in {@link placeholderParser#stm}.
+	 * Enter a parse tree produced by {@link placeholderParser#stm}.
 	 * @param ctx the parse tree
 	 */
-	void enterInit(placeholderParser.InitContext ctx);
+	void enterStm(placeholderParser.StmContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code init}
-	 * labeled alternative in {@link placeholderParser#stm}.
+	 * Exit a parse tree produced by {@link placeholderParser#stm}.
 	 * @param ctx the parse tree
 	 */
-	void exitInit(placeholderParser.InitContext ctx);
+	void exitStm(placeholderParser.StmContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code print}
-	 * labeled alternative in {@link placeholderParser#stm}.
+	 * Enter a parse tree produced by {@link placeholderParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrint(placeholderParser.PrintContext ctx);
+	void enterExpression(placeholderParser.ExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code print}
-	 * labeled alternative in {@link placeholderParser#stm}.
+	 * Exit a parse tree produced by {@link placeholderParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrint(placeholderParser.PrintContext ctx);
+	void exitExpression(placeholderParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code loop}
-	 * labeled alternative in {@link placeholderParser#stm}.
+	 * Enter a parse tree produced by {@link placeholderParser#term}.
 	 * @param ctx the parse tree
 	 */
-	void enterLoop(placeholderParser.LoopContext ctx);
+	void enterTerm(placeholderParser.TermContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code loop}
-	 * labeled alternative in {@link placeholderParser#stm}.
+	 * Exit a parse tree produced by {@link placeholderParser#term}.
 	 * @param ctx the parse tree
 	 */
-	void exitLoop(placeholderParser.LoopContext ctx);
+	void exitTerm(placeholderParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link placeholderParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(placeholderParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link placeholderParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(placeholderParser.IdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link placeholderParser#ifstmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfstmt(placeholderParser.IfstmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link placeholderParser#ifstmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfstmt(placeholderParser.IfstmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link placeholderParser#assignstmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignstmt(placeholderParser.AssignstmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link placeholderParser#assignstmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignstmt(placeholderParser.AssignstmtContext ctx);
 }
