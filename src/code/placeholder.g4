@@ -46,47 +46,82 @@ Loop:   L O O P;
 
 DATATYPE: NUMTYPE
         | STRTYPE
+        | BOOLTYPE
         ;
+
 NUMTYPE:    N U M B E R;
 STRTYPE:    S T R I N G;
-ID:     I D;
+BOOLTYPE:   B O O L;
+
+STRING: '"' (ESC|.)*? '"' ;
+
+fragment ESC : '\\"' | '\\\\' ; // 2-char sequences \" and \\ from antlr4 book
 
 NUMBER: [0-9]+'.'?[0-9]*;
 
+BOOL: 'True'|'False';
+
 IF: 'if';
-ENDIF: 'endif';
+END: 'end';
+
+OP: PLUS
+  | MINUS
+  | MULT
+  | DIV
+  ;
+
+BOOLOP: EQUAL
+      | NOTEQUAL
+      | LESSTHAN
+      | GREATERTHAN
+      | LESSTHANEQ
+      | GREATERTHANEQ
+      ;
 
 PLUS: '+';
-EQUAL: '==';
+MINUS: '-';
+MULT: '*';
+DIV: '/';
+EQUAL: '=';
 ASSIGN: 'is';
 NOTEQUAL: '!=';
 
+
+LESSTHAN: '<';
+GREATERTHAN: '>';
+LESSTHANEQ: '<=';
+GREATERTHANEQ: '>=';
+
 SEMICOLON: ';';
+LCURL:  '{';
+RCURL:  '}';
 
-expression      : 
-                term
-              | term PLUS term 
-                ;
+expression: term 
+        | expression OP expression
+        ;
 
-term          : 
-            identifier
-            | NUMBER
+boolexpression: term
+              | expression BOOLOP expression
               ;
 
-identifier   : WORD  ;
-
+term          : 
+            ID
+            | NUMBER
+            | STRING
+            | BOOL
+              ;
 
 ifstmt      : 
-            IF WORD EQUAL NUMBER
+            IF boolexpression WS? NL
+            LCURL NL
             stm*
-            ENDIF
+            RCURL NL
             ;
 
 assignstmt      : 
-                DATATYPE WORD ASSIGN expression NL
+                DATATYPE ID ASSIGN expression NL
                 ;
 
-WORD:   [a-z|A-Z]+;
+ID:   [a-z|A-Z]+;
 WS:		[ \t\r]+ -> skip;
-
 NL:     [\n];
