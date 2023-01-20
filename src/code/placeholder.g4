@@ -29,10 +29,11 @@ fragment Z:	'z'|'Z';
 
 prog:	stm*;
 
-stm:    ifstmt
-      | Say 
-      | assignstmt
-        ;
+stm:  ifstmt
+    | say 
+    | assignstmt
+    | loop
+    ;
 
     //     stm:    Say WORD                    # print
     //     | Loop NUMBER               # loop
@@ -41,8 +42,7 @@ stm:    ifstmt
     //     | 
 		// ;
 
-Say:    S A Y;
-Loop:   L O O P;
+say: 'say' STRING;
 
 DATATYPE: NUMTYPE
         | STRTYPE
@@ -104,24 +104,29 @@ boolexpression: term
               | expression BOOLOP expression
               ;
 
-term          : 
-            ID
-            | NUMBER
-            | STRING
-            | BOOL
-              ;
+term: ID
+    | NUMBER
+    | STRING
+    | BOOL
+    ;
 
-ifstmt      : 
-            IF boolexpression WS? NL
-            LCURL NL
-            stm*
-            RCURL NL
+ifstmt: 
+      IF boolexpression
+      LCURL
+      stm*
+      RCURL
+      ;
+
+assignstmt: 
+            DATATYPE ID ASSIGN expression SEMICOLON
             ;
 
-assignstmt      : 
-                DATATYPE ID ASSIGN expression NL
-                ;
+loop: 'loop' NUMBER 'times'
+      LCURL
+      stm*
+      RCURL
+    ;
 
 ID:   [a-z|A-Z]+;
-WS:		[ \t\r]+ -> skip;
-NL:     [\n];
+WS:		[ \t\r\n]+ -> skip;
+//NL:     ';';

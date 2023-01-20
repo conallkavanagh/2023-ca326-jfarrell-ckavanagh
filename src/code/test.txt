@@ -1,0 +1,13 @@
+if 3 = 3 
+{
+    number x is 5 ;
+}
+
+number y is 3 ;
+
+loop 5 times 
+{
+    number x is x + 1;
+}
+
+say "hello world"
