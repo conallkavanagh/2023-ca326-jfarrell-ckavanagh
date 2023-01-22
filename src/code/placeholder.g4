@@ -63,6 +63,7 @@ BOOL: 'True'|'False';
 
 IF: 'if';
 END: 'end';
+ELSE : 'else';
 
 OP: PLUS
   | MINUS
@@ -96,6 +97,9 @@ SEMICOLON: ';';
 LCURL:  '{';
 RCURL:  '}';
 
+
+COMMENT: '#' ~[\r\n]* -> skip;
+
 expression: term 
         | expression OP expression
         ;
@@ -115,6 +119,7 @@ ifstmt:
       LCURL
       stm*
       RCURL
+      (ELSE IF expression)* (ELSE expression)?
       ;
 
 assignstmt: 
@@ -126,6 +131,10 @@ loop: 'loop' NUMBER 'times'
       stm*
       RCURL
     ;
+
+array: '[' term (',' term)* ']'
+      | '[' ']'
+      ;
 
 ID:   [a-z|A-Z]+;
 WS:		[ \t\r\n]+ -> skip;

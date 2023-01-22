@@ -1,6 +1,9 @@
 if 3 = 3 
 {
     number x is 5 ;
+} else if 3 != 3 
+{
+    number x is 4 ;
 }
 
 number y is 3 ;
