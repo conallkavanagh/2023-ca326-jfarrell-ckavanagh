@@ -55,9 +55,17 @@ BOOLTYPE:   B O O L;
 
 STRING: '"' (ESC|.)*? '"' ;
 
-fragment ESC : '\\"' | '\\\\' ; // 2-char sequences \" and \\ from antlr4 book
+LITERAL: NUMBER
+       | STRING
+       | BOOL
+       //| list
+       | 'None'
+       ;
 
 NUMBER: [0-9]+'.'?[0-9]*;
+
+fragment ESC : '\\"' | '\\\\' ; // 2-char sequences \" and \\ from antlr4 book
+
 
 BOOL: 'True'|'False';
 
@@ -65,18 +73,22 @@ IF: 'if';
 END: 'end';
 ELSE : 'else';
 
-OP: PLUS
-  | MINUS
-  | MULT
-  | DIV
-  ;
+BINOP: PLUS
+     | MINUS
+     | MULT
+     | DIV
+     | EQUAL
+     | NOTEQUAL
+     | LESSTHAN
+     | GREATERTHAN
+     | LESSTHANEQ
+     | GREATERTHANEQ
+     | AND
+     | OR
+     ;
 
-BOOLOP: EQUAL
-      | NOTEQUAL
-      | LESSTHAN
-      | GREATERTHAN
-      | LESSTHANEQ
-      | GREATERTHANEQ
+UNIOPS: NOT
+      | MINUS
       ;
 
 PLUS: '+';
@@ -86,6 +98,9 @@ DIV: '/';
 EQUAL: '=';
 ASSIGN: 'is';
 NOTEQUAL: '!=';
+AND: A N D;
+OR: O R;
+NOT: N O T;
 
 
 LESSTHAN: '<';
@@ -101,19 +116,16 @@ RCURL:  '}';
 COMMENT: '#' ~[\r\n]* -> skip;
 
 expression: term 
-        | expression OP expression
-        | expression BOOLOP expression
-        ;
+          | expression BINOP expression
+          | UNIOPS expression
+          ;
 
 // boolexpression: term
 //               | expression BOOLOP expression
 //               ;
 
 term: ID
-    | NUMBER
-    | STRING
-    | BOOL
-    | list
+    | LITERAL
     ;
 
 ifstmt: 
@@ -125,11 +137,9 @@ ifstmt:
       (ELSE LCURL stm* RCURL)?
       ;
 
-assignstmt: 
-            DATATYPE ID ASSIGN expression SEMICOLON
-            ;
+assignstmt: (DATATYPE)? ID ASSIGN expression SEMICOLON;
 
-loop: 'loop' NUMBER 'times'
+loop: 'loop' term 'times'
       LCURL
       stm*
       RCURL
@@ -139,6 +149,6 @@ list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
-ID:   [a-z|A-Z]+;
-WS:		[ \t\r\n]+ -> skip;
+ID: [a-z|A-Z]+;
+WS: [ \t\r\n]+ -> skip;
 //NL:     ';';
