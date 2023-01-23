@@ -1,0 +1,5 @@
+on procedure(number x,number y) {
+    say "hello world";
+    say "hello world";
+}
+

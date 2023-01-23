@@ -35,14 +35,7 @@ stm:  ifstmt
     | loop
     ;
 
-    //     stm:    Say WORD                    # print
-    //     | Loop NUMBER               # loop
-    //     | NUMBER                    # number
-    //     | ID                        # id
-    //     | 
-		// ;
-
-say: 'say' STRING;
+//datatypes
 
 DATATYPE: NUMTYPE
         | STRTYPE
@@ -64,10 +57,12 @@ fragment ESC : '\\"' | '\\\\' ; // 2-char sequences \" and \\ from antlr4 book
 
 BOOL: 'True'|'False';
 
+// conditionals
 IF: 'if';
 END: 'end';
 ELSE : 'else';
 
+// binary operators - 2 arguments
 BINOP: PLUS
      | MINUS
      | MULT
@@ -82,10 +77,12 @@ BINOP: PLUS
      | OR
      ;
 
+//unary operators - 1 argument
 UNIOPS: NOT
       | MINUS
       ;
 
+// operator definitions
 PLUS: '+';
 MINUS: '-';
 MULT: '*';
@@ -110,14 +107,14 @@ RCURL:  '}';
 
 COMMENT: '#' ~[\r\n]* -> skip;
 
+
+//commands
+say: 'say' STRING SEMICOLON;
+
 expression: term 
           | expression BINOP expression
           | UNIOPS expression
           ;
-
-// boolexpression: term
-//               | expression BOOLOP expression
-//               ;
 
 list: '[' term (',' term)* ']'
       | '[' ']'
@@ -147,7 +144,12 @@ loop: 'loop' (ID | NUMBER) 'times'
       LCURL
       stm*
       RCURL
-    ;
+      ;
+
+//procedure definitions
+proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
+
+arg: DATATYPE ID;
 
 ID: [a-z|A-Z]+;
 WS: [ \t\r\n]+ -> skip;
