@@ -47,16 +47,6 @@ public interface placeholderListener extends ParseTreeListener {
 	 */
 	void exitExpression(placeholderParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link placeholderParser#boolexpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBoolexpression(placeholderParser.BoolexpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link placeholderParser#boolexpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBoolexpression(placeholderParser.BoolexpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link placeholderParser#term}.
 	 * @param ctx the parse tree
 	 */
@@ -96,4 +86,14 @@ public interface placeholderListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLoop(placeholderParser.LoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link placeholderParser#list}.
+	 * @param ctx the parse tree
+	 */
+	void enterList(placeholderParser.ListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link placeholderParser#list}.
+	 * @param ctx the parse tree
+	 */
+	void exitList(placeholderParser.ListContext ctx);
 }

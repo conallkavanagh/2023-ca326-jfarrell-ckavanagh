@@ -64,18 +64,6 @@ public class placeholderBaseListener implements placeholderListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoolexpression(placeholderParser.BoolexpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBoolexpression(placeholderParser.BoolexpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTerm(placeholderParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -119,6 +107,18 @@ public class placeholderBaseListener implements placeholderListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLoop(placeholderParser.LoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterList(placeholderParser.ListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitList(placeholderParser.ListContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

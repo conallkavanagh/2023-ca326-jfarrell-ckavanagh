@@ -1,10 +1,18 @@
 if 3 = 3 
 {
     number x is 5 ;
-} else if 3 != 3 
-{
+} else if 3 != 3 {
     number x is 4 ;
 }
+
+if 4 > 3
+{
+
+}
+
+# This is a comment
+
+number arr is list [x, y] ;
 
 number y is 3 ;
 

@@ -102,24 +102,27 @@ COMMENT: '#' ~[\r\n]* -> skip;
 
 expression: term 
         | expression OP expression
+        | expression BOOLOP expression
         ;
 
-boolexpression: term
-              | expression BOOLOP expression
-              ;
+// boolexpression: term
+//               | expression BOOLOP expression
+//               ;
 
 term: ID
     | NUMBER
     | STRING
     | BOOL
+    | list
     ;
 
 ifstmt: 
-      IF boolexpression
-      LCURL
-      stm*
-      RCURL
-      (ELSE IF expression)* (ELSE expression)?
+      IF expression 
+      LCURL 
+      stm* 
+      RCURL 
+      (ELSE IF expression LCURL stm* RCURL)* 
+      (ELSE LCURL stm* RCURL)?
       ;
 
 assignstmt: 
@@ -132,7 +135,7 @@ loop: 'loop' NUMBER 'times'
       RCURL
     ;
 
-array: '[' term (',' term)* ']'
+list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
