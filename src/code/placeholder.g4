@@ -57,13 +57,6 @@ LISTTYPE:   L I S T;
 
 STRING: '"' (ESC|.)*? '"' ;
 
-LITERAL: NUMBER
-       | STRING
-       | BOOL
-       //| list
-       | 'None'
-       ;
-
 NUMBER: [0-9]+'.'?[0-9]*;
 
 fragment ESC : '\\"' | '\\\\' ; // 2-char sequences \" and \\ from antlr4 book
@@ -133,7 +126,10 @@ list: '[' term (',' term)* ']'
 
 term: list
     | ID
-    | LITERAL
+    | NUMBER
+    | STRING
+    | BOOL
+    | 'None'
     ;
 
 ifstmt: 
@@ -147,7 +143,7 @@ ifstmt:
 
 assignstmt: (DATATYPE)? ID ASSIGN expression SEMICOLON;
 
-loop: 'loop' term 'times'
+loop: 'loop' (ID | NUMBER) 'times'
       LCURL
       stm*
       RCURL
