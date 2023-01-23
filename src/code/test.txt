@@ -4,10 +4,16 @@ if 3 = 3
 } else if 3 != 3 {
     number x is 4 ;
 }
+else {
+    number x is 3;
+}
 
 if 4 > 3
 {
-
+    number z is 1;
+}
+else {
+    number z is 2;
 }
 
 # This is a comment
