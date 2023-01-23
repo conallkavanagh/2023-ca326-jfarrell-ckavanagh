@@ -33,6 +33,8 @@ stm:  ifstmt
     | say 
     | assignstmt
     | loop
+    | proc_def
+    | list
     ;
 
 //datatypes
