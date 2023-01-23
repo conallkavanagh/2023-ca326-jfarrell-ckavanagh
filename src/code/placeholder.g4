@@ -47,11 +47,13 @@ say: 'say' STRING;
 DATATYPE: NUMTYPE
         | STRTYPE
         | BOOLTYPE
+        | LISTTYPE
         ;
 
 NUMTYPE:    N U M B E R;
 STRTYPE:    S T R I N G;
 BOOLTYPE:   B O O L;
+LISTTYPE:   L I S T;
 
 STRING: '"' (ESC|.)*? '"' ;
 
@@ -124,7 +126,13 @@ expression: term
 //               | expression BOOLOP expression
 //               ;
 
-term: ID
+list: '[' term (',' term)* ']'
+      | '[' ']'
+      ;
+
+
+term: list
+    | ID
     | LITERAL
     ;
 
@@ -144,10 +152,6 @@ loop: 'loop' term 'times'
       stm*
       RCURL
     ;
-
-list: '[' term (',' term)* ']'
-      | '[' ']'
-      ;
 
 ID: [a-z|A-Z]+;
 WS: [ \t\r\n]+ -> skip;

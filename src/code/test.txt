@@ -18,7 +18,7 @@ else {
 
 # This is a comment
 
-# number arr is list [x, y] ;
+number arr is [x, y] ;
 
 number y is 3 ;
 
