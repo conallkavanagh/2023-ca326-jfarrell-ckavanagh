@@ -65,10 +65,10 @@ END: 'end';
 ELSE : 'else';
 
 // binary operators - 2 arguments
-BINOP: PLUS
-     | MINUS
-     | MULT
+BINOP: MULT
      | DIV
+     | PLUS
+     | MINUS
      | EQUAL
      | NOTEQUAL
      | LESSTHAN
@@ -113,21 +113,20 @@ COMMENT: '#' ~[\r\n]* -> skip;
 //commands
 say: 'say' STRING SEMICOLON;
 
-expression: term 
-          | expression BINOP expression
-          | UNIOPS expression
+expression: expression BINOP expression
+          | UNIOPS expression 
+          | term 
           ;
 
 list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
-
-term: list
-    | ID
+term: ID
     | NUMBER
     | STRING
     | BOOL
+    | list
     | 'None'
     ;
 
