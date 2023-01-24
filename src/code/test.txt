@@ -8,6 +8,8 @@ else {
     number x is 3;
 }
 
+Bool x is True;
+
 if 4 > 3
 {
     number z is 1;
