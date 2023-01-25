@@ -105,6 +105,8 @@ GREATERTHANEQ: '>=';
 SEMICOLON: ';';
 LCURL:  '{';
 RCURL:  '}';
+LBRAC:  '(';
+RBRAC:  ')';
 
 
 COMMENT: '#' ~[\r\n]* -> skip;
@@ -113,7 +115,8 @@ COMMENT: '#' ~[\r\n]* -> skip;
 //commands
 say: 'say' STRING SEMICOLON;
 
-expression: expression BINOP expression
+expression: LBRAC expression RBRAC
+          | expression BINOP expression
           | UNIOPS expression 
           | term 
           ;
