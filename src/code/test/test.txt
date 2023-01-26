@@ -18,13 +18,18 @@ else {
 
 # This is a comment
 
-number arr is [x, y] ;
+list arr is [x, y] ;
 
 number y is 3 ;
 
 loop 5 times 
 {
     number x is x + 1;
+}
+
+on procedure(number x,number y) {
+    say "hello world";
+    say "hello world";
 }
 
 say "hello world"

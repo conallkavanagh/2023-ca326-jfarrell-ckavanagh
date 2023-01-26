@@ -33,6 +33,7 @@ stm:  ifstmt
     | say 
     | assignstmt
     | loop
+    | proc_def
     ;
 
 //datatypes
@@ -63,19 +64,28 @@ END: 'end';
 ELSE : 'else';
 
 // binary operators - 2 arguments
-BINOP: PLUS
-     | MINUS
-     | MULT
-     | DIV
-     | EQUAL
-     | NOTEQUAL
-     | LESSTHAN
-     | GREATERTHAN
-     | LESSTHANEQ
-     | GREATERTHANEQ
-     | AND
-     | OR
-     ;
+// BINOP: EXPONENT
+//      | MULT
+//      | DIV
+//      | PLUS
+//      | MINUS
+//      | AND
+//      | OR
+//      | EQUAL
+//      | NOTEQUAL
+//      | LESSTHAN
+//      | GREATERTHAN
+//      | LESSTHANEQ
+//      | GREATERTHANEQ
+//      ;
+
+COMPOP: EQUAL
+      | NOTEQUAL
+      | LESSTHAN
+      | GREATERTHAN
+      | LESSTHANEQ
+      | GREATERTHANEQ
+      ;
 
 //unary operators - 1 argument
 UNIOPS: NOT
@@ -83,6 +93,7 @@ UNIOPS: NOT
       ;
 
 // operator definitions
+EXPONENT: '^';
 PLUS: '+';
 MINUS: '-';
 MULT: '*';
@@ -111,9 +122,16 @@ COMMENT: '#' ~[\r\n]* -> skip;
 //commands
 say: 'say' STRING SEMICOLON;
 
-expression: term 
-          | expression BINOP expression
-          | UNIOPS expression
+expression: expression binop=EXPONENT expression   
+          | expression binop=(MULT|DIV) expression   
+          | expression binop=(PLUS|MINUS) expression 
+          | uniop=MINUS expression                 
+          | uniop=NOT expression                   
+          | expression binop=AND expression        
+          | expression binop=OR expression         
+          | term                                   
+          | '(' expression ')'                     
+          | expression binop=COMPOP expression     
           ;
 
 list: '[' term (',' term)* ']'
