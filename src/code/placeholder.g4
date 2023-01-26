@@ -114,6 +114,8 @@ GREATERTHANEQ: '>=';
 SEMICOLON: ';';
 LCURL:  '{';
 RCURL:  '}';
+LBRAC:  '(';
+RBRAC:  ')';
 
 
 COMMENT: '#' ~[\r\n]* -> skip;
@@ -138,12 +140,11 @@ list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
-
-term: list
-    | ID
+term: ID
     | NUMBER
     | STRING
     | BOOL
+    | list
     | 'None'
     ;
 

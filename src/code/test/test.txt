@@ -1,12 +1,14 @@
 if 3 = 3 
 {
-    number x is 5 ;
+    number x is 5;
 } else if 3 != 3 {
-    number x is 4 ;
+    number x is 4 + (3 * 5);
 }
 else {
     number x is 3;
 }
+
+Bool x is True;
 
 if 4 > 3
 {
@@ -18,9 +20,7 @@ else {
 
 # This is a comment
 
-list arr is [x, y] ;
-
-number y is 3 ;
+number arr is [1, 2, [3, 4], 5];
 
 loop 5 times 
 {
