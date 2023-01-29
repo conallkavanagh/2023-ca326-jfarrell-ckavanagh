@@ -34,6 +34,7 @@ stm:  ifstmt
     | assignstmt
     | loop
     | proc_def
+    | proc_invoke
     ;
 
 //datatypes
@@ -167,6 +168,7 @@ loop: 'loop' (ID | NUMBER) 'times'
 
 //procedure definitions
 proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
+proc_invoke: ID '(' term (',' term)* ')' SEMICOLON;
 
 arg: DATATYPE ID;
 

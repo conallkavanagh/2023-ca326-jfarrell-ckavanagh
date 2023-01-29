@@ -33,3 +33,5 @@ on procedure(number x,number y) {
 }
 
 say "hello world";
+
+procedure(1, 2);
