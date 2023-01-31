@@ -30,11 +30,11 @@ fragment Z:	'z'|'Z';
 prog:	stm*;
 
 stm:  ifstmt
-    | say 
-    | assignstmt
+    | say SEMICOLON
+    | assignstmt SEMICOLON
     | loop
     | proc_def
-    | proc_invoke
+    | proc_invoke SEMICOLON
     ;
 
 //datatypes
@@ -123,7 +123,7 @@ COMMENT: '#' ~[\r\n]* -> skip;
 
 
 //commands
-say: 'say' STRING SEMICOLON;
+say: 'say' STRING ;
 
 expression: expression binop=EXPONENT expression      # Exponent
           | expression binop=(MULT|DIV) expression    # MultDiv
@@ -141,12 +141,12 @@ list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
-term: ID    
-    | NUMBER
-    | STRING
-    | BOOL  
-    | list   
-    | 'None'
+term: ID     # id
+    | NUMBER # number
+    | STRING # string
+    | BOOL   # bool
+    | list   # array
+    | 'None' # none
     ;
 
 ifstmt: 
@@ -158,7 +158,7 @@ ifstmt:
       (ELSE LCURL stm* RCURL)?
       ;
 
-assignstmt: (DATATYPE)? ID ASSIGN expression SEMICOLON;
+assignstmt: (DATATYPE)? ID ASSIGN expression ;
 
 loop: 'loop' (ID | NUMBER) 'times'
       LCURL
@@ -168,7 +168,7 @@ loop: 'loop' (ID | NUMBER) 'times'
 
 //procedure definitions
 proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
-proc_invoke: ID '(' term (',' term)* ')' SEMICOLON;
+proc_invoke: ID '(' term (',' term)* ')' ;
 
 arg: DATATYPE ID;
 
