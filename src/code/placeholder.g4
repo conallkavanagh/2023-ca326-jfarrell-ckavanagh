@@ -125,27 +125,27 @@ COMMENT: '#' ~[\r\n]* -> skip;
 //commands
 say: 'say' STRING SEMICOLON;
 
-expression: expression binop=EXPONENT expression   
-          | expression binop=(MULT|DIV) expression   
-          | expression binop=(PLUS|MINUS) expression 
-          | uniop=MINUS expression                 
-          | uniop=NOT expression                   
-          | expression binop=AND expression        
-          | expression binop=OR expression         
-          | term                                   
-          | '(' expression ')'                     
-          | expression binop=COMPOP expression     
+expression: expression binop=EXPONENT expression      # Exponent
+          | expression binop=(MULT|DIV) expression    # MultDiv
+          | expression binop=(PLUS|MINUS) expression  # PlusMinus
+          | uniop=MINUS expression                    # Minus
+          | uniop=NOT expression                      # Not
+          | expression binop=AND expression           # And
+          | expression binop=OR expression            # Or
+          | term                                      # terms
+          | '(' expression ')'                        # parens
+          | expression binop=COMPOP expression        # CompOp
           ;
 
 list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
-term: Id
+term: ID    
     | NUMBER
     | STRING
-    | BOOL
-    | list
+    | BOOL  
+    | list   
     | 'None'
     ;
 
@@ -158,20 +158,20 @@ ifstmt:
       (ELSE LCURL stm* RCURL)?
       ;
 
-assignstmt: (DATATYPE)? Id ASSIGN expression SEMICOLON;
+assignstmt: (DATATYPE)? ID ASSIGN expression SEMICOLON;
 
-loop: 'loop' (Id | NUMBER) 'times'
+loop: 'loop' (ID | NUMBER) 'times'
       LCURL
       stm*
       RCURL
       ;
 
 //procedure definitions
-proc_def : 'on' Id '(' arg (',' arg)* ')' LCURL stm* RCURL;
-proc_invoke: Id '(' term (',' term)* ')' SEMICOLON;
+proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
+proc_invoke: ID '(' term (',' term)* ')' SEMICOLON;
 
-arg: DATATYPE Id;
+arg: DATATYPE ID;
 
-Id: [a-z|A-Z]+;
+ID: [a-z|A-Z]+;
 WS: [ \t\r\n]+ -> skip;
 //NL:     ';';
