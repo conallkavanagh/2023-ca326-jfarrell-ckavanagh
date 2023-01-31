@@ -141,7 +141,7 @@ list: '[' term (',' term)* ']'
       | '[' ']'
       ;
 
-term: ID
+term: Id
     | NUMBER
     | STRING
     | BOOL
@@ -158,20 +158,20 @@ ifstmt:
       (ELSE LCURL stm* RCURL)?
       ;
 
-assignstmt: (DATATYPE)? ID ASSIGN expression SEMICOLON;
+assignstmt: (DATATYPE)? Id ASSIGN expression SEMICOLON;
 
-loop: 'loop' (ID | NUMBER) 'times'
+loop: 'loop' (Id | NUMBER) 'times'
       LCURL
       stm*
       RCURL
       ;
 
 //procedure definitions
-proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
-proc_invoke: ID '(' term (',' term)* ')' SEMICOLON;
+proc_def : 'on' Id '(' arg (',' arg)* ')' LCURL stm* RCURL;
+proc_invoke: Id '(' term (',' term)* ')' SEMICOLON;
 
-arg: DATATYPE ID;
+arg: DATATYPE Id;
 
-ID: [a-z|A-Z]+;
+Id: [a-z|A-Z]+;
 WS: [ \t\r\n]+ -> skip;
 //NL:     ';';
