@@ -17,6 +17,12 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Float> {
     /** NUMBER */
     @Override
     public Float visitTerms(placeholderParser.TermsContext ctx) {
-        return Float.valueOf(ctx.term().getText());
+        return visit(ctx.term());
     }
+
+    @Override
+    public Float visitNumber(placeholderParser.NumberContext ctx) {
+        return Float.valueOf(ctx.getText());
+    }
+
 }

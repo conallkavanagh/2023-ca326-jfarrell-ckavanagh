@@ -132,7 +132,7 @@ expression: expression binop=EXPONENT expression      # Exponent
           | uniop=NOT expression                      # Not
           | expression binop=AND expression           # And
           | expression binop=OR expression            # Or
-          | term                                      # terms
+          | term                                      # Terms
           | '(' expression ')'                        # parens
           | expression binop=COMPOP expression        # CompOp
           ;
