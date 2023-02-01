@@ -1,0 +1,5 @@
+number x is 5;
+say x;
+x is 6;
+say x;
+say "hello";

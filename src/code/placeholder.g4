@@ -102,7 +102,7 @@ COMMENT: '#' ~[\r\n]* -> skip;
 
 
 //commands
-say: 'say' STRING ;
+say: 'say' term ;
 
 expression: expression op=EXPONENT expression      # Exponent
           | expression op=(MULT|DIV) expression    # MultDiv

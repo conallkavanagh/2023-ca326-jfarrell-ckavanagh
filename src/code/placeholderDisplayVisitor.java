@@ -10,7 +10,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Double> {
         String id = ctx.ID().getText();          // id is left-hand side of '='
         double value = visit(ctx.expression());   // compute value of expression on right
         memory.put(id, value);                   // store it in our memory
-        System.out.format("%s = %f", id, value);
+        System.out.format("%s = %f\n", id, value);
         return value;
     }
 
@@ -24,6 +24,14 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Double> {
     @Override
     public Double visitNumber(placeholderParser.NumberContext ctx) {
         return Double.valueOf(ctx.getText());
+    }
+
+    /** Number */
+    @Override
+    public Double visitId(placeholderParser.IdContext ctx) {
+        String id = ctx.ID().getText();
+        if ( memory.containsKey(id) ) return memory.get(id);
+        return null;
     }
 
     @Override
@@ -52,4 +60,10 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Double> {
         return 0 - visit(ctx.expression());
     }
     
+    public Double visitSay(placeholderParser.SayContext ctx) {
+        // int length = ctx.STRING().getText().length();
+        // System.out.println(ctx.STRING().getText().substring(1, length-1));
+        System.out.println(visit(ctx.term()));
+        return 0.00;
+    }
 }
