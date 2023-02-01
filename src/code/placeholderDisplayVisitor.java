@@ -14,19 +14,42 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Double> {
         return value;
     }
 
-    /** NUMBER */
+    /** Terms */
     @Override
     public Double visitTerms(placeholderParser.TermsContext ctx) {
         return visit(ctx.term());
     }
 
+    /** Number */
     @Override
     public Double visitNumber(placeholderParser.NumberContext ctx) {
         return Double.valueOf(ctx.getText());
     }
 
-	@Override
+    @Override
     public Double visitExponent(placeholderParser.ExponentContext ctx) {
         return Math.pow(visit(ctx.expression(0)), visit(ctx.expression(1)));
     }
+
+    @Override 
+    public Double visitPlusMinus(placeholderParser.PlusMinusContext ctx) {
+        double left  = visit(ctx.expression(0));
+        double right = visit(ctx.expression(1));
+        if(ctx.op.getType() == placeholderParser.PLUS) return left + right;
+        return left - right; //must be MINUS
+    }
+    
+    @Override 
+    public Double visitMultDiv(placeholderParser.MultDivContext ctx) {
+        double left  = visit(ctx.expression(0));
+        double right = visit(ctx.expression(1));
+        if(ctx.op.getType() == placeholderParser.MULT) return left * right;
+        return left / right; //must be DIV
+    }
+    
+    @Override 
+    public Double visitMinus(placeholderParser.MinusContext ctx) {
+        return 0 - visit(ctx.expression());
+    }
+    
 }

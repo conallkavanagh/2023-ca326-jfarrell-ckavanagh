@@ -64,33 +64,12 @@ IF: 'if';
 END: 'end';
 ELSE : 'else';
 
-// binary operators - 2 arguments
-// BINOP: EXPONENT
-//      | MULT
-//      | DIV
-//      | PLUS
-//      | MINUS
-//      | AND
-//      | OR
-//      | EQUAL
-//      | NOTEQUAL
-//      | LESSTHAN
-//      | GREATERTHAN
-//      | LESSTHANEQ
-//      | GREATERTHANEQ
-//      ;
-
 COMPOP: EQUAL
       | NOTEQUAL
       | LESSTHAN
       | GREATERTHAN
       | LESSTHANEQ
       | GREATERTHANEQ
-      ;
-
-//unary operators - 1 argument
-UNIOPS: NOT
-      | MINUS
       ;
 
 // operator definitions
@@ -125,16 +104,16 @@ COMMENT: '#' ~[\r\n]* -> skip;
 //commands
 say: 'say' STRING ;
 
-expression: expression binop=EXPONENT expression      # Exponent
-          | expression binop=(MULT|DIV) expression    # MultDiv
-          | expression binop=(PLUS|MINUS) expression  # PlusMinus
-          | uniop=MINUS expression                    # Minus
-          | uniop=NOT expression                      # Not
-          | expression binop=AND expression           # And
-          | expression binop=OR expression            # Or
-          | term                                      # Terms
-          | '(' expression ')'                        # parens
-          | expression binop=COMPOP expression        # CompOp
+expression: expression op=EXPONENT expression      # Exponent
+          | expression op=(MULT|DIV) expression    # MultDiv
+          | expression op=(PLUS|MINUS) expression  # PlusMinus
+          | op=MINUS expression                    # Minus
+          | op=NOT expression                      # Not
+          | expression op=AND expression           # And
+          | expression op=OR expression            # Or
+          | term                                   # Terms
+          | '(' expression ')'                     # parens
+          | expression op=COMPOP expression        # CompOp
           ;
 
 list: '[' term (',' term)* ']'
