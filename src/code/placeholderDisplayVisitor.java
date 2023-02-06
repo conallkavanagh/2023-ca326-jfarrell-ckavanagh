@@ -1,69 +1,98 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class placeholderDisplayVisitor extends placeholderBaseVisitor<Double> {
+public class placeholderDisplayVisitor extends placeholderBaseVisitor<String>{
 
-    Map<String, Double> memory = new HashMap<String, Double>();
+    Map<String, String> memory = new HashMap<String, String>();
 
     @Override
-    public Double visitAssignstmt(placeholderParser.AssignstmtContext ctx) {
+    public String visitAssignstmt(placeholderParser.AssignstmtContext ctx) {
         String id = ctx.ID().getText();          // id is left-hand side of '='
-        double value = visit(ctx.expression());   // compute value of expression on right
+        String value = visit(ctx.expression());   // compute value of expression on right
         memory.put(id, value);                   // store it in our memory
-        System.out.format("%s = %f\n", id, value);
+        System.out.format("%s = %s\n", id, value);
         return value;
     }
 
+
     /** Terms */
     @Override
-    public Double visitTerms(placeholderParser.TermsContext ctx) {
+    public String visitTerms(placeholderParser.TermsContext ctx) {
         return visit(ctx.term());
     }
 
     /** Number */
     @Override
-    public Double visitNumber(placeholderParser.NumberContext ctx) {
-        return Double.valueOf(ctx.getText());
+    public String visitNumber(placeholderParser.NumberContext ctx) {
+        return ctx.getText();
     }
 
     /** Number */
     @Override
-    public Double visitId(placeholderParser.IdContext ctx) {
+    public String visitId(placeholderParser.IdContext ctx) {
         String id = ctx.ID().getText();
         if ( memory.containsKey(id) ) return memory.get(id);
         return null;
     }
 
     @Override
-    public Double visitExponent(placeholderParser.ExponentContext ctx) {
-        return Math.pow(visit(ctx.expression(0)), visit(ctx.expression(1)));
+    public String visitString(placeholderParser.StringContext ctx) {
+        return ctx.getText();
+    }
+
+    @Override
+    public String visitBool(placeholderParser.BoolContext ctx) {
+        return ctx.getText();
+    }
+
+    @Override
+    public String visitExponent(placeholderParser.ExponentContext ctx) {
+        Double d = Math.pow(Double.valueOf(visit(ctx.expression(0))), Double.valueOf(visit(ctx.expression(1))));
+        String ans = String.valueOf(d);
+        return ans;
     }
 
     @Override 
-    public Double visitPlusMinus(placeholderParser.PlusMinusContext ctx) {
-        double left  = visit(ctx.expression(0));
-        double right = visit(ctx.expression(1));
-        if(ctx.op.getType() == placeholderParser.PLUS) return left + right;
-        return left - right; //must be MINUS
+    public String visitPlusMinus(placeholderParser.PlusMinusContext ctx) {
+        double left  = Double.valueOf(visit(ctx.expression(0)));
+        double right = Double.valueOf(visit(ctx.expression(1)));
+        if(ctx.op.getType() == placeholderParser.PLUS){
+            double d = left + right;
+            String ans = String.valueOf(d);
+            return ans;
+        } else {
+            double d = left - right; //must be MINUS
+            String ans = String.valueOf(d);
+            return ans;
+        }
     }
     
     @Override 
-    public Double visitMultDiv(placeholderParser.MultDivContext ctx) {
-        double left  = visit(ctx.expression(0));
-        double right = visit(ctx.expression(1));
-        if(ctx.op.getType() == placeholderParser.MULT) return left * right;
-        return left / right; //must be DIV
+    public String visitMultDiv(placeholderParser.MultDivContext ctx) {
+        double left  = Double.valueOf(visit(ctx.expression(0)));
+        double right = Double.valueOf(visit(ctx.expression(0)));
+        if(ctx.op.getType() == placeholderParser.MULT){
+            double d = left * right;
+            String ans = String.valueOf(d);
+            return ans;
+        } else {
+            double d = left / right; //must be DIV
+            String ans = String.valueOf(d);
+            return ans;
+        }
     }
     
     @Override 
-    public Double visitMinus(placeholderParser.MinusContext ctx) {
-        return 0 - visit(ctx.expression());
+    public String visitMinus(placeholderParser.MinusContext ctx) {
+        double d = 0 - Double.valueOf(visit(ctx.expression()));
+        String ans = String.valueOf(d);
+        return ans;
     }
     
-    public Double visitSay(placeholderParser.SayContext ctx) {
+    public String visitSay(placeholderParser.SayContext ctx) {
         // int length = ctx.STRING().getText().length();
         // System.out.println(ctx.STRING().getText().substring(1, length-1));
         System.out.println(visit(ctx.term()));
-        return 0.00;
+        return "";
     }
 }
