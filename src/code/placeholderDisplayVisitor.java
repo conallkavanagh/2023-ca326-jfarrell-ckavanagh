@@ -31,7 +31,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     /** ID */
     @Override
     public Object visitId(placeholderParser.IdContext ctx) {
-        String id = ctx.ID().getText();
+        String id = ctx.getText();
         if ( memory.containsKey(id) ) return memory.get(id);
         return null;
     }
@@ -51,7 +51,6 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         double base     = (double) visit(ctx.expression(0));
         double exponent = (double) visit(ctx.expression(1));
         return Math.pow(base, exponent);
-        // String ans = String.valueOf(d);
     }
 
     @Override 
@@ -96,9 +95,16 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     
     @Override 
     public Object visitLoop(placeholderParser.LoopContext ctx) {
-        int x = Integer.valueOf(ctx.NUMBER().getText());
-        // int length = ctx.stm().length();
-        for (int i = 0; i < x; i++) {
+        double x = 0;
+        // check if its an id or number
+        if (ctx.ID() != null) {
+            /* we have to do this as for some reason it doesnt 
+               seem to visit our visitId method when attempted */
+            x = (double) memory.get(ctx.ID().getText());
+        } else {
+            x = Double.valueOf(ctx.NUMBER().getText());
+        }
+        for (double i = 0; i < x; i++) {
             for (placeholderParser.StmContext stat : ctx.stm()) {
                 this.visit(stat);
             }

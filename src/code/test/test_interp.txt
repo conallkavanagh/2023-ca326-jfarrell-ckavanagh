@@ -3,9 +3,21 @@ say x;
 Bool y is True;
 say y;
 say "hello";
+string myname is "conall";
 
 loop 5 times {
     say "in a for loop";
     say x;
     x is x + 1;
 }
+
+say myname;
+
+number z is 3;
+
+loop z times {
+    say "in another for loop";
+    say x;
+    x is x + 1;
+}
+
