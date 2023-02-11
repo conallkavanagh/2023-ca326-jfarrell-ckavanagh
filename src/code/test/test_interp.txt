@@ -6,4 +6,6 @@ say "hello";
 
 loop 5 times {
     say "in a for loop";
+    say x;
+    x is x + 1;
 }
