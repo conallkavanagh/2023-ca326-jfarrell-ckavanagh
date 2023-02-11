@@ -3,3 +3,7 @@ say x;
 Bool y is True;
 say y;
 say "hello";
+
+loop 5 times {
+    say "in a for loop";
+}

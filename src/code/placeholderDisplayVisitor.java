@@ -27,7 +27,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<String>{
         return ctx.getText();
     }
 
-    /** Number */
+    /** ID */
     @Override
     public String visitId(placeholderParser.IdContext ctx) {
         String id = ctx.ID().getText();
@@ -89,10 +89,23 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<String>{
         return ans;
     }
     
+    @Override 
     public String visitSay(placeholderParser.SayContext ctx) {
         // int length = ctx.STRING().getText().length();
         // System.out.println(ctx.STRING().getText().substring(1, length-1));
         System.out.println(visit(ctx.term()));
+        return "";
+    }
+    
+    @Override 
+    public String visitLoop(placeholderParser.LoopContext ctx) {
+        int x = Integer.valueOf(ctx.NUMBER().getText());
+        // int length = ctx.stm().length();
+        for (int i = 0; i < x; i++) {
+            for (placeholderParser.StmContext stat : ctx.stm()) {
+                this.visit(stat);
+            }
+        }
         return "";
     }
 }
