@@ -1,9 +1,9 @@
-Number x is -5;
+x is -5;
 say x;
-Bool y is True;
+y is True;
 say y;
 say "hello";
-string myname is "conall";
+myname is "conall";
 
 loop 5 times {
     say "in a for loop";
@@ -13,7 +13,7 @@ loop 5 times {
 
 say myname;
 
-number z is 3;
+z is 3;
 
 loop z times {
     say "in another for loop";
@@ -21,3 +21,10 @@ loop z times {
     x is x + 1;
 }
 
+hello is "hello " + myname;
+
+say hello;
+
+if true {
+    say "in if";
+}

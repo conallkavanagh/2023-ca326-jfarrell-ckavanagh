@@ -38,7 +38,9 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
     @Override
     public Object visitString(placeholderParser.StringContext ctx) {
-        return ctx.getText();
+        String text = ctx.getText();
+        int length = text.length();
+        return text.substring(1, length-1);
     }
 
     @Override
@@ -55,21 +57,26 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
     @Override 
     public Object visitPlusMinus(placeholderParser.PlusMinusContext ctx) {
-        double left  = (double) visit(ctx.expression(0));
-        double right = (double) visit(ctx.expression(1));
-        Double d;
+        Object left  = visit(ctx.expression(0));
+        Object right = visit(ctx.expression(1));
+
         if(ctx.op.getType() == placeholderParser.PLUS){
-            d = left + right;
-        } else {
-            d = left - right; //must be MINUS
-        }
-        return d;
+            if (left instanceof Double && right instanceof Double) {
+                // normal addition
+                return (double)left + (double)right;
+            } else if (left instanceof String && right instanceof String) {
+                // string concatenation
+                return (String)left + (String)right;
+            }
+        } 
+        // must be MINUS
+        return (double)left - (double)right;
     }
     
     @Override 
     public Object visitMultDiv(placeholderParser.MultDivContext ctx) {
         double left  = (double) visit(ctx.expression(0));
-        double right = (double) visit(ctx.expression(0));
+        double right = (double) visit(ctx.expression(1));
         Double d;
         if(ctx.op.getType() == placeholderParser.MULT){
             d = left * right;

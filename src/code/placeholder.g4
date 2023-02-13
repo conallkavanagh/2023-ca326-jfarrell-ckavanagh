@@ -129,7 +129,7 @@ term: ID     # id
     ;
 
 ifstmt: 
-      IF expression 
+      IF expression
       LCURL 
       stm* 
       RCURL 
