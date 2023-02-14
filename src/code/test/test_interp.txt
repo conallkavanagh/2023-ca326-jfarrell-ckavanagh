@@ -25,6 +25,5 @@ hello is "hello " + myname;
 
 say hello;
 
-if true {
-    say "in if";
-}
+x is (4 + 4) * 2;
+say x;

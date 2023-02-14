@@ -88,8 +88,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     
     @Override 
     public Object visitMinus(placeholderParser.MinusContext ctx) {
-        double d =  -1 * (double) visit(ctx.expression());
-        return d;
+        return -1 * (double) visit(ctx.expression());
     }
     
     @Override 
@@ -102,7 +101,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     
     @Override 
     public Object visitLoop(placeholderParser.LoopContext ctx) {
-        double x = 0;
+        double x;
         // check if its an id or number
         if (ctx.ID() != null) {
             /* we have to do this as for some reason it doesnt 
@@ -117,5 +116,9 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             }
         }
         return null;
+    }
+
+	@Override public Object visitParens(placeholderParser.ParensContext ctx) {
+        return visit(ctx.expression());
     }
 }
