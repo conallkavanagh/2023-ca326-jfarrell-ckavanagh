@@ -103,7 +103,11 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             }
             i++;
         }
-        return null;
+        try {
+            return visit(ctx.block(i));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override 
