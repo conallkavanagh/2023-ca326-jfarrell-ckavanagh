@@ -30,17 +30,17 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
     private String stringify(Object object) {
         if (object == null) return "nil";
-    
+
         if (object instanceof Double) {
-          String text = object.toString();
-          if (text.endsWith(".0")) {
-            text = text.substring(0, text.length() - 2);
-          }
-          return text;
+            String text = object.toString();
+            if (text.endsWith(".0")) {
+                text = text.substring(0, text.length() - 2);
+            }
+            return text;
         }
-    
+
         return object.toString();
-      }
+    }
 
     /** ID */
     @Override
@@ -87,6 +87,22 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         return (double)left - (double)right;
     }
     
+	@Override
+    public Object visitIfstmt(placeholderParser.IfstmtContext ctx) {
+        System.out.println("visiting if statements");
+        // System.out.println(ctx.expression());
+        System.out.println(ctx);
+        System.out.println(ctx.stm(0).getText());
+        for (placeholderParser.ExpressionContext var : ctx.expression()) {
+            if ((boolean)visit(var)) {
+                System.out.println("evaluated to True");
+            } else {
+                System.out.println("evaluated to False");
+            }
+        }
+        return null;
+    }
+
     @Override 
     public Object visitMultDiv(placeholderParser.MultDivContext ctx) {
         double left  = (double) visit(ctx.expression(0));
