@@ -92,13 +92,16 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         System.out.println("visiting if statements");
         // System.out.println(ctx.expression());
         System.out.println(ctx);
-        System.out.println(ctx.stm(0).getText());
+        // System.out.println(ctx.stm(0).getText());
+        int i = 0;
         for (placeholderParser.ExpressionContext var : ctx.expression()) {
             if ((boolean)visit(var)) {
                 System.out.println("evaluated to True");
+                return visit(ctx.block(i));
             } else {
                 System.out.println("evaluated to False");
             }
+            i++;
         }
         return null;
     }

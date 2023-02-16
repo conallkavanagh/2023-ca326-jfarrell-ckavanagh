@@ -130,12 +130,11 @@ term: ID     # id
 
 ifstmt: 
       IF expression
-      LCURL 
-      stm* 
-      RCURL 
-      (ELSE IF expression LCURL stm* RCURL)* 
-      (ELSE LCURL stm* RCURL)?
+      block
+      (ELSE IF expression block)* 
+      (ELSE block)?
       ;
+
 
 assignstmt: (DATATYPE)? ID ASSIGN expression ;
 
@@ -144,6 +143,8 @@ loop: 'loop' (ID | NUMBER) 'times'
       stm*
       RCURL
       ;
+
+block: LCURL stm* RCURL;
 
 //procedure definitions
 proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
