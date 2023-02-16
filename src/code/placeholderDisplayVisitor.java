@@ -28,6 +28,20 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         return Double.valueOf(ctx.getText());
     }
 
+    private String stringify(Object object) {
+        if (object == null) return "nil";
+    
+        if (object instanceof Double) {
+          String text = object.toString();
+          if (text.endsWith(".0")) {
+            text = text.substring(0, text.length() - 2);
+          }
+          return text;
+        }
+    
+        return object.toString();
+      }
+
     /** ID */
     @Override
     public Object visitId(placeholderParser.IdContext ctx) {
@@ -95,7 +109,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     public Object visitSay(placeholderParser.SayContext ctx) {
         // int length = ctx.STRING().getText().length();
         // System.out.println(ctx.STRING().getText().substring(1, length-1));
-        System.out.println(visit(ctx.term()));
+        System.out.println(stringify(visit(ctx.term())));
         return null;
     }
     
