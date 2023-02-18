@@ -88,9 +88,19 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             if (left instanceof Double && right instanceof Double) {
                 // normal addition
                 return (double)left + (double)right;
+
             } else if (left instanceof String && right instanceof String) {
                 // string concatenation
                 return (String)left + (String)right;
+
+            } else if (left instanceof Double && right instanceof String) {
+                // string concatenation
+                return (double)left + (String)right;
+
+            } else if (left instanceof String && right instanceof Double) {
+                // string concatenation
+                return (String)left + (double)right;
+                
             } else if (left instanceof ArrayList) {
                 // append to arrays
                 ArrayList<Object> list = (ArrayList<Object>)left;
