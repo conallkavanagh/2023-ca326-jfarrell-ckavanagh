@@ -27,3 +27,11 @@ say hello;
 
 x is (4 + 4) * 2;
 say x;
+
+if y is True {
+    ans is z + " is 3";
+    say ans;
+} else {
+    ans is z + " is not 3";
+    say ans;
+}
