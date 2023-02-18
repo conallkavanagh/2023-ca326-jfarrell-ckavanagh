@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
@@ -15,6 +17,14 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         return value;
     }
 
+	@Override 
+    public Object visitList(placeholderParser.ListContext ctx) { 
+        ArrayList<Object> list = new ArrayList<Object>();
+        for (placeholderParser.TermContext term : ctx.term()) {
+            list.add(visit(term));
+        }
+        return list;
+    }
 
     /** Terms */
     @Override
@@ -81,6 +91,11 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             } else if (left instanceof String && right instanceof String) {
                 // string concatenation
                 return (String)left + (String)right;
+            } else if (left instanceof ArrayList) {
+                // append to arrays
+                ArrayList<Object> list = (ArrayList<Object>)left;
+                list.add(right);
+                return list;
             }
         } 
         // must be MINUS
@@ -95,6 +110,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         // System.out.println(ctx.stm(0).getText());
         int i = 0;
         for (placeholderParser.ExpressionContext var : ctx.expression()) {
+            // we are going through each boolean expression of the if and else if statements
             if ((boolean)visit(var)) {
                 System.out.println("evaluated to True");
                 return visit(ctx.block(i));
@@ -103,9 +119,12 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             }
             i++;
         }
+        // we have gone through the if and all else ifs now
         try {
+            // try and see if there is an else block
             return visit(ctx.block(i));
         } catch (Exception e) {
+            // if not just return null
             return null;
         }
     }
