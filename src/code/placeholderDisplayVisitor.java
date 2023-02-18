@@ -100,7 +100,11 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             } else if (left instanceof String && right instanceof Double) {
                 // string concatenation
                 return (String)left + (double)right;
-                
+
+            } else if (left instanceof ArrayList && right instanceof String) {
+                // string concatenation
+                return (ArrayList)left + (String)right;
+
             } else if (left instanceof ArrayList) {
                 // append to arrays
                 ArrayList<Object> list = (ArrayList<Object>)left;
@@ -108,6 +112,11 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
                 return list;
             }
         } 
+        if (left instanceof ArrayList) {
+            ArrayList<Object> list = (ArrayList<Object>)left;
+                list.remove(right);
+                return list;
+        }
         // must be MINUS
         return (double)left - (double)right;
     }
