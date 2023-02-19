@@ -42,3 +42,7 @@ Here is the order of commands and features that will be covered in the guide
 7. Functions
 8. Comments
 
+## Strings, Numbers and Bools
+
+### Strings
+Stru
