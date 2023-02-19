@@ -33,12 +33,12 @@ There are a lot of commands each with their own use and ways of being written. T
 
 Here is the order of commands and features that will be covered in the guide
 	
-	1. Strings, Numbers and Bools
-	2. Say
-	3. Assigning Variables
-	4. Lists
-	5. Loops
-	6. If Statement
-	7. Functions
-	8. Comments
+1. Strings, Numbers and Bools
+2. Say
+3. Assigning Variables
+4. Lists
+5. Loops
+6. If Statement
+7. Functions
+8. Comments
 
