@@ -123,18 +123,18 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     
 	@Override
     public Object visitIfstmt(placeholderParser.IfstmtContext ctx) {
-        System.out.println("visiting if statements");
+        // System.out.println("visiting if statements");
         // System.out.println(ctx.expression());
-        System.out.println(ctx);
+        // System.out.println(ctx);
         // System.out.println(ctx.stm(0).getText());
         int i = 0;
         for (placeholderParser.ExpressionContext var : ctx.expression()) {
             // we are going through each boolean expression of the if and else if statements
             if ((boolean)visit(var)) {
-                System.out.println("evaluated to True");
+                // System.out.println("evaluated to True");
                 return visit(ctx.block(i));
             } else {
-                System.out.println("evaluated to False");
+                // System.out.println("evaluated to False");
             }
             i++;
         }
