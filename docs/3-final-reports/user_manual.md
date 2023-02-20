@@ -114,3 +114,8 @@ some examples are:
 `x is 5;`
 `y is "hello";`
 `z is True;`
+
+The computer has automatically assigned x as a number variable, y as a string variable, and z as a boolean variable.
+
+## Lists
+
