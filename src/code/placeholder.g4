@@ -115,6 +115,7 @@ expression: expression op=EXPONENT expression      # Exponent
           | term                                   # Terms
           | '(' expression ')'                     # parens
           | expression op=COMPOP expression        # CompOp
+          | proc_invoke                            # proc_invoke_expr
           ;
 
 list: '[' term (',' term)* ']'
@@ -147,7 +148,7 @@ loop: 'loop' (ID | NUMBER) 'times'
 
 block: LCURL stm* RCURL;
 
-returnstmt: 'return' expression?;
+returnstmt: 'return' expression;
 
 //procedure definitions
 proc_def : 'on' ID '(' (arg (',' arg)*)? ')' LCURL stm* RCURL;

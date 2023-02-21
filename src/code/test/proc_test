@@ -1,7 +1,15 @@
-on procedure(number x,number y) {
+on procedure(x,y) {
     say x;
     say y;
 }
 
+on givesthree() {
+    return 3;
+}
+
 procedure(1, 2);
+
+x is givesthree();
+
+say x;
 

@@ -9,7 +9,12 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
     Map<String, Object> heapmem = new HashMap<String, Object>();
     Map<String, List<placeholderParser.StmContext>> functionblocks = new HashMap<String, List<placeholderParser.StmContext>>();
-    Stack<HashMap<String, Object>> stackmem = new Stack<>();
+    Stack<HashMap<String, Object>> stackmem = new Stack<HashMap<String, Object>>();
+    Boolean in_return = false;
+
+    public placeholderDisplayVisitor () {
+        stackmem.push(new HashMap<String, Object>());
+    }
 
     @Override
     public Object visitAssignstmt(placeholderParser.AssignstmtContext ctx) {
@@ -192,7 +197,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         if (ctx.ID() != null) {
             /* we have to do this as for some reason it doesnt 
                seem to visit our visitId method when attempted */
-            x = (double) heapmem.get(ctx.ID().getText());
+            x = (double) stackmem.peek().get(ctx.ID().getText());
         } else {
             x = Double.valueOf(ctx.NUMBER().getText());
         }
@@ -213,6 +218,8 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     public Object visitCompOp(placeholderParser.CompOpContext ctx) {
         Object left  = visit(ctx.expression(0));
         Object right = visit(ctx.expression(1));
+        System.out.println(left.getClass());
+        System.out.println(right.getClass());
         boolean booltype   = false;
         boolean stringtype = false;
         boolean numtype    = false;
@@ -222,24 +229,34 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         } else if (left instanceof String && right instanceof String) {
             stringtype = true;
         } else if (left instanceof Double && right instanceof Double) {
+            System.out.println("fsafg");
             numtype = true;
         }
 
-        if (ctx.op.getType() == placeholderParser.EQUAL) {
-            if      (booltype)   return (boolean)left == (boolean)right;
-            else if (stringtype) return (String)left  == (String)right;
-            else if (numtype)    return (double)left  == (double)right;
-        } else if (ctx.op.getType() == placeholderParser.NOTEQUAL) {
+        String op = ctx.op.getText();
+        System.out.println(op.equals("="));
+
+        if (op.equals("=")) {
+            System.out.println("sdghj");
+            if (booltype) {
+                return (boolean)left == (boolean)right;
+            } else if (stringtype) {
+                return (String)left  == (String)right;
+            } else if (numtype) {
+                System.out.println("sdghj");
+                return ((double)left  == (double)right);
+            }
+        } else if (op.equals("!=")) {
             if      (booltype)   return (boolean)left != (boolean)right;
             else if (stringtype) return (String)left  != (String)right;
             else if (numtype)    return (double)left  != (double)right;
-        } else if (ctx.op.getType() == placeholderParser.LESSTHAN) {
+        } else if (op.equals("<")) {
             if (numtype)         return (double)left  < (double)right;
-        } else if (ctx.op.getType() == placeholderParser.GREATERTHAN) {
+        } else if (op.equals(">")) {
             if (numtype)         return (double)left  > (double)right;
-        } else if (ctx.op.getType() == placeholderParser.GREATERTHANEQ) {
+        } else if (op.equals(">=")) {
             if (numtype)         return (double)left  >= (double)right;
-        } else if (ctx.op.getType() == placeholderParser.LESSTHANEQ) {
+        } else if (op.equals("<=")) {
             if (numtype)         return (double)left  <= (double)right;
         }
         return null;
@@ -248,6 +265,24 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 	@Override
     public Object visitNot(placeholderParser.NotContext ctx) {
         return !(boolean)visit(ctx.expression());
+    }
+
+	@Override 
+    public Object visitBlock(placeholderParser.BlockContext ctx) {
+        for (placeholderParser.StmContext curr_stm : ctx.stm()) {
+            // System.out.println(curr_stm.getText());
+            // System.out.println(curr_stm.getRuleIndex());
+            // System.out.println(curr_stm.getRuleIndex() == placeholderParser.RULE_returnstmt);
+            visit(curr_stm);
+            if (in_return) {
+                // System.out.println("success");
+                Object out = visit(curr_stm.returnstmt());
+                // System.out.println(stringify(out));
+                // in_return = false;
+                return out;
+            }
+        }
+        return null;
     }
 
 	@Override
@@ -279,6 +314,8 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
         int i = 0;
         for (placeholderParser.TermContext term : ctx.term()) {
+            // System.out.println(argnames.get(i).getText());
+            // System.out.println(visit(term));
             local.put(argnames.get(i).getText(), visit(term));
             // arguments.add(visit(ctx.term()));
             i++;
@@ -288,17 +325,37 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
         List<placeholderParser.StmContext> statements = functionblocks.get(ctx.ID().getText());
 
+        // System.out.println("visiting procedure invoke");
+
         for (placeholderParser.StmContext curr_stm : statements) {
-            if (curr_stm.getRuleIndex() == placeholderParser.RULE_returnstmt) {
-                return visit(curr_stm);
-            }
+            // System.out.println(curr_stm.getText());
+            // System.out.println(curr_stm.getRuleIndex());
+            // System.out.println(curr_stm.getRuleIndex() == placeholderParser.RULE_returnstmt);
             visit(curr_stm);
+            if (in_return) {
+                // System.out.println("success");
+                Object out = visit(curr_stm.returnstmt());
+                // System.out.println(stringify(out));
+                stackmem.pop();
+                in_return = false;
+                return out;
+            }
         }
 
+        stackmem.pop();
         return null;
         // placeholderInvocable function = invokee;
         // return function.call(this, arguments);
     }
 
+    
+	@Override
+    public Object visitReturnstmt(placeholderParser.ReturnstmtContext ctx) { 
+        in_return = true;
+        Object value = visit(ctx.expression());
+        // System.out.println((double)value);
+        return value;
+        // return visit(ctx.proc_invoke());
+    }
 
 }

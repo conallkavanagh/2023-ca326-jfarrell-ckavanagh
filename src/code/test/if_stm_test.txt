@@ -15,7 +15,7 @@ if x {
 
 
 
-else if False {
+if (x = False) {
     say "in else if";
     say "in else if";
     say "in else if";
