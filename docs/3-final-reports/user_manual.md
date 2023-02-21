@@ -183,4 +183,97 @@ there are 2 types of if statements
 > If statements
 > If else statements
 
-If statements work off of bools, where if the bool is true the main section of code is then ran 
+### If Statements
+If statements work off of bools, where if the bool is true the main section of code is then ran if not then the code is skipped and we progress through the rest of the programme
+```
+y is True;
+x is False;
+
+if y {
+	# Code here is then ran
+}
+
+if x {
+	# Code here is skipped
+}
+```
+
+```
+x is True;
+
+if x {
+    say "x is true";
+}
+```
+`x is true`
+
+This is the simplest form of if statements as if the statement is false then nothing happens
+
+### If-Else Statements
+If else statements, as you might be able to interpret, are an extension of the if statement. While if statements simply pass if the variable is false if-else statements execute a seperate block of code.
+```
+x is True;
+
+if x {
+    say "x is true";
+} else {
+	say " x is false";
+}
+```
+
+from the example above if `x is False` then instead of nothing being said by the computer, the string `"x is false` is outputted instead.
+
+
+## 7 - Functions
+A function is a block of code which only runs when it is called. This allows for code to be written once in the programme but used multiple times in different places.
+
+In order for functions to work you first need to make the function
+### Making the Function
+Making the function is very simple. you start with "on" then the function name followed by brackets to indicate any inputs the function may need and the cureley brackets to indicate that the code within them is part of the function. It should look something like this
+```
+on FunctionName(x, y) {
+say x;
+say  y;
+}
+```
+This function, called `FunctionName`, when called will look for 2 variables called x and y and then say the value of those variables
+
+Now that we have this code created we need to call the function for it to be run.
+### Calling the Function
+Calling the function only requires typing out the functions name and inputting any variables that are necessary for it
+
+`FunctionName(1, 2);`
+
+This calls the above function and will output
+```
+1
+2
+```
+> It is not necessary for functions to require input variables, Some functions can work just fine without any.
+> In these cases the making and calling of the function would look like this:
+> ```
+> on FunctionName() {
+> # Code
+> }
+> 
+> FunctionName();
+> ```
+
+## 8 - Comments
+Comments can be used to make the code more readable and easier to remember what ceratin parts of the programme do. Comments may also used to prevent execution when testing code as if you dont want a line to be read by the computer you can comment it out and it will skip the line.
+
+The computer recognises comments by the use of the `#` symbol.
+anything written after the # is considered to be a comment and will not be executed.
+
+```
+# This is a comment and wont be read
+
+x is "Hello World"; # i can use comments to explain what the code does
+say x; 
+# say y;
+# i can comment out code that i do not want to be run without having to delete it
+```
+```
+Hello World
+```
+Comments are a useful tool and recommended to use especially in more complex programms.
