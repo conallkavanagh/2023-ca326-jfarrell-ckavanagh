@@ -20,10 +20,12 @@ Once you cloned the repo and have antlr4 installed move to the directory src/cod
 `~/2023-ca326-jfarrell-ckavanagh$ cd src/code`
 
 Now that we have the blueprints of the language we need to run the run.sh file found here. this can be done by typing into the console `./run.sh` you will know it has worked when the following appears 
-`java org.antlr.v4.gui.TestRig GrammarName startRuleName`
-  `[-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]`
- `[-trace] [-diagnostics] [-SLL]`
-`[input-filename(s)]`
+```
+java org.antlr.v4.gui.TestRig GrammarName startRuleName
+[-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]
+[-trace] [-diagnostics] [-SLL]
+[input-filename(s)]
+```
 
 once you see that it is time to start making your own programms.
 
@@ -53,10 +55,10 @@ Bool variables are simple True or False variables. They can have no other value 
 ### Strings
 Strings are what the computer sees as words or sentences.
 They are differentiated form other commands by the use of quotation marks ( "" )
-
-`say x;`
-`say "x";`
-
+```
+say x;
+say "x";
+```
 The first line would say the value of variable x while the second would simply say the letter x
 the use of strings is important to differentiate what is meant to be executed by the computer and what is meant to be human readable.
 
@@ -90,50 +92,51 @@ It is important to know that both True and False need to have their first letter
 The say command is our first and most basic commands, having said that it is the one command that can appear in almost every programme as it is responsible for getting the computer to say the output of the programme.
 
 Lets take the line `x is (5 + 2) * 2;` that the computer can easily calculate the answer but without the say command the user will never know what answer the computer got as nothing is telling it to say the value of x
-
-`x is (5 + 2) * 2;`
-`say x;`
-
+```
+x is (5 + 2) * 2;
+say x;
+```
 `14`
 
 By adding in the say command we can get the computer to say what the value of x is.
 The say command can output any type of variable and the assosiated value.
 
 `say "Hello World";`
-
-`x is True;`
-`say x;`
-
+```
+x is True;
+say x;
+```
 The output for these would be `Hello World` and `true` respectivly.
 
 ## 3 - Assigning Variables
 We would have covered this a bit in the earlier examples but we will go over it again here to make sure that you know what is happening.
 
 Assigning values to variables is very simple first we have the name of our variable in this case we will use `x`. We then follow that up with `is` and then the value we are assigning to it. Dont worry about the variable type the computer will automatically determine if it is a string, number or bool based on the assigned value.
-
-`x is 5;`
-`y is "hello";`
-`z is True;`
-
+```
+x is 5;
+y is "hello";
+z is True;
+```
 The computer has automatically assigned x as a number variable, y as a string variable, and z as a boolean variable.
 
 ## 4 - Lists
 
 Lists are a way of storing multiple numbers or strings in a single variable. 
-`x is [1, 2, 4, "Hello", 5, 6];`
-`say x;`
-
+```
+x is [1, 2, 4, "Hello", 5, 6];
+say x;
+```
 `[1.0, 2.0, 4.0, Hello, 5.0, 6.0]`
 
 These items can be added and removed from the list by using the `+` or  `-` operations similar to incrementing a variable. 
-
-`x is [1, 2, 4, "Hello", 5, 6];`
-`x is x + 3;`
-`x is x + 7;`
-`x is x - "Hello";`
-`x is x - 3;`
-`say x;`
-
+```
+x is [1, 2, 4, "Hello", 5, 6];
+x is x + 3;
+x is x + 7;
+x is x - "Hello";
+x is x - 3;
+say x;
+```
 `[1.0, 2.0, 4.0, 5.0, 6.0, 7.0]`
 
 As you can see from the above example the items in the list are not ordered and any new items added join on the right hand side
@@ -141,33 +144,43 @@ As you can see from the above example the items in the list are not ordered and 
 ## 5 - Loops
 
 Loops are used to execute a set of commands a certain number of times before continuing with the rest of the programme. Loops allow for code to be repeated without having to write it out multiple times and take up increased file space
-
-`loop 5 times {`
-&emsp;&emsp;`say "in the loop";`
-`}`
-
-`in the loop`
-`in the loop`
-`in the loop`
-`in the loop`
-`in the loop`
+```
+loop 5 times {
+	say "in the loop";
+}
+```
+```
+in the loop
+in the loop
+in the loop
+in the loop
+in the loop
+```
 
 As you can see with only one `say` command we were able to get the computer to say the string 5 times
 Loops can also repeat based on a number variable
-
-`x is 5;`
-`z is 1;`
-`loop x times {`
-&emsp;&emsp;`say z;`
-&emsp;&emsp;`z is z + 1;`
-`}`
-
-`1`
-`2`
-`3`
-`4`
-`5`
+```
+x is 5;
+z is 1;
+loop x times {
+	say z;
+	z is z + 1;
+}
+```
+```
+1
+2
+3
+4
+5
+```
 
 Not only did the loop execute correctly using a variable but the incrementation of the `z` variable highlights how loops reuse code. 
 
 ## 6 - If Statement
+
+there are 2 types of if statements
+> If statements
+> If else statements
+
+If statements work off of bools, where if the bool is true the main section of code is then ran 
