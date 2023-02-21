@@ -4,7 +4,6 @@
 **Table of Contents**
 - Setting up the language.
 - The commands.
-- Example problems / solutions.
 ---
 ## Setting up the Enviroment
 
