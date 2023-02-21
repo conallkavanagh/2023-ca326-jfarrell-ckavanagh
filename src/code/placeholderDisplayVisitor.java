@@ -1,17 +1,21 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
 
-    Map<String, Object> memory = new HashMap<String, Object>();
+    Map<String, Object> heapmem = new HashMap<String, Object>();
+    Map<String, List<placeholderParser.StmContext>> functionblocks = new HashMap<String, List<placeholderParser.StmContext>>();
+    Stack<HashMap<String, Object>> stackmem = new Stack<>();
 
     @Override
     public Object visitAssignstmt(placeholderParser.AssignstmtContext ctx) {
         String id = ctx.ID().getText();          // id is left-hand side of '='
         Object value = visit(ctx.expression());  // compute value of expression on right
-        memory.put(id, value);                   // store it in our memory
+        stackmem.peek().put(id, value);                   // store it in our memory
         // System.out.format("%s = %s\n", id, value);
         // System.out.println(value.getClass());
         return value;
@@ -38,6 +42,11 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         return Double.valueOf(ctx.getText());
     }
 
+    @Override
+    public Object visitNone(placeholderParser.NoneContext ctx) {
+        return Double.valueOf(ctx.getText());
+    }
+
     private String stringify(Object object) {
         if (object == null) return "nil";
 
@@ -56,7 +65,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
     @Override
     public Object visitId(placeholderParser.IdContext ctx) {
         String id = ctx.getText();
-        if ( memory.containsKey(id) ) return memory.get(id);
+        if ( stackmem.peek().containsKey(id) ) return stackmem.peek().get(id);
         return null;
     }
 
@@ -96,6 +105,8 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
                 ArrayList<Object> list = (ArrayList<Object>)left;
                 list.add(right);
                 return list;
+            } else {
+                System.out.println("unsupported types for '+'" + left.getClass() + " and " + right.getClass());
             }
         } 
         // must be MINUS
@@ -162,7 +173,7 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         if (ctx.ID() != null) {
             /* we have to do this as for some reason it doesnt 
                seem to visit our visitId method when attempted */
-            x = (double) memory.get(ctx.ID().getText());
+            x = (double) heapmem.get(ctx.ID().getText());
         } else {
             x = Double.valueOf(ctx.NUMBER().getText());
         }
@@ -174,7 +185,101 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         return null;
     }
 
-	@Override public Object visitParens(placeholderParser.ParensContext ctx) {
+	@Override
+    public Object visitParens(placeholderParser.ParensContext ctx) {
         return visit(ctx.expression());
     }
+
+    @Override
+    public Object visitCompOp(placeholderParser.CompOpContext ctx) {
+        Object left  = visit(ctx.expression(0));
+        Object right = visit(ctx.expression(1));
+        boolean booltype   = false;
+        boolean stringtype = false;
+        boolean numtype    = false;
+
+        if (left instanceof Boolean && right instanceof Boolean) {
+            booltype = true;
+        } else if (left instanceof String && right instanceof String) {
+            stringtype = true;
+        } else if (left instanceof Double && right instanceof Double) {
+            numtype = true;
+        }
+
+        if (ctx.op.getType() == placeholderParser.EQUAL) {
+            if      (booltype)   return (boolean)left == (boolean)right;
+            else if (stringtype) return (String)left  == (String)right;
+            else if (numtype)    return (double)left  == (double)right;
+        } else if (ctx.op.getType() == placeholderParser.NOTEQUAL) {
+            if      (booltype)   return (boolean)left != (boolean)right;
+            else if (stringtype) return (String)left  != (String)right;
+            else if (numtype)    return (double)left  != (double)right;
+        } else if (ctx.op.getType() == placeholderParser.LESSTHAN) {
+            if (numtype)         return (double)left  < (double)right;
+        } else if (ctx.op.getType() == placeholderParser.GREATERTHAN) {
+            if (numtype)         return (double)left  > (double)right;
+        } else if (ctx.op.getType() == placeholderParser.GREATERTHANEQ) {
+            if (numtype)         return (double)left  >= (double)right;
+        } else if (ctx.op.getType() == placeholderParser.LESSTHANEQ) {
+            if (numtype)         return (double)left  <= (double)right;
+        }
+        return null;
+    }
+
+	@Override
+    public Object visitNot(placeholderParser.NotContext ctx) {
+        return !(boolean)visit(ctx.expression());
+    }
+
+	@Override
+    public Object visitAnd(placeholderParser.AndContext ctx) {
+        return (boolean)visit(ctx.expression(0)) && (boolean)visit(ctx.expression(1));
+    }
+
+	@Override
+    public Object visitOr(placeholderParser.OrContext ctx) {
+        return (boolean)visit(ctx.expression(0)) || (boolean)visit(ctx.expression(1));
+    }
+
+    @Override
+    public Object visitProc_def(placeholderParser.Proc_defContext ctx) {
+        heapmem.put(ctx.ID().getText(), ctx.arg());
+        functionblocks.put(ctx.ID().getText(), ctx.stm());
+        // for (placeholderParser.StmContext statement : ctx.stm()) {
+        //     pass;
+        // }
+        return null;
+    }
+
+    @Override
+	public Object visitProc_invoke(placeholderParser.Proc_invokeContext ctx) {
+        Object invokee =  visit(ctx.ID());
+
+        List<placeholderParser.ArgContext> argnames = (List<placeholderParser.ArgContext>)heapmem.get(ctx.ID().getText());
+        HashMap<String, Object> local = new HashMap<String, Object>();
+
+        int i = 0;
+        for (placeholderParser.TermContext term : ctx.term()) {
+            local.put(argnames.get(i).getText(), visit(term));
+            // arguments.add(visit(ctx.term()));
+            i++;
+        }
+        
+        stackmem.push(local);
+
+        List<placeholderParser.StmContext> statements = functionblocks.get(ctx.ID().getText());
+
+        for (placeholderParser.StmContext curr_stm : statements) {
+            if (curr_stm.getRuleIndex() == placeholderParser.RULE_returnstmt) {
+                return visit(curr_stm);
+            }
+            visit(curr_stm);
+        }
+
+        return null;
+        // placeholderInvocable function = invokee;
+        // return function.call(this, arguments);
+    }
+
+
 }

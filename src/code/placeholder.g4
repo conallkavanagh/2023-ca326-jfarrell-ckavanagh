@@ -35,6 +35,7 @@ stm:  ifstmt
     | loop
     | proc_def
     | proc_invoke SEMICOLON
+    | returnstmt SEMICOLON
     ;
 
 //datatypes
@@ -146,11 +147,13 @@ loop: 'loop' (ID | NUMBER) 'times'
 
 block: LCURL stm* RCURL;
 
-//procedure definitions
-proc_def : 'on' ID '(' arg (',' arg)* ')' LCURL stm* RCURL;
-proc_invoke: ID '(' term (',' term)* ')' ;
+returnstmt: 'return' expression?;
 
-arg: DATATYPE ID;
+//procedure definitions
+proc_def : 'on' ID '(' (arg (',' arg)*)? ')' LCURL stm* RCURL;
+proc_invoke: ID '(' (term (',' term)*)? ')' ;
+
+arg: ID;
 
 ID: [a-z|A-Z]+;
 WS: [ \t\r\n]+ -> skip;
