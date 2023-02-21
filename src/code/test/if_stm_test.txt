@@ -1,9 +1,21 @@
-if False {
-    say "in if";
-    say "in if";
-    say "in if";
-    say "in if";
-} else if False {
+x is False;
+
+
+if x {
+    say "x is true";
+} else {
+    say "x is false";
+}
+
+
+
+
+
+
+
+
+
+else if False {
     say "in else if";
     say "in else if";
     say "in else if";

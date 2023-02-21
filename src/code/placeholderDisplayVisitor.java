@@ -97,9 +97,23 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
             if (left instanceof Double && right instanceof Double) {
                 // normal addition
                 return (double)left + (double)right;
+
             } else if (left instanceof String && right instanceof String) {
                 // string concatenation
                 return (String)left + (String)right;
+
+            } else if (left instanceof Double && right instanceof String) {
+                // string concatenation
+                return (double)left + (String)right;
+
+            } else if (left instanceof String && right instanceof Double) {
+                // string concatenation
+                return (String)left + (double)right;
+
+            } else if (left instanceof ArrayList && right instanceof String) {
+                // string concatenation
+                return (ArrayList)left + (String)right;
+
             } else if (left instanceof ArrayList) {
                 // append to arrays
                 ArrayList<Object> list = (ArrayList<Object>)left;
@@ -109,24 +123,29 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
                 System.out.println("unsupported types for '+'" + left.getClass() + " and " + right.getClass());
             }
         } 
+        if (left instanceof ArrayList) {
+            ArrayList<Object> list = (ArrayList<Object>)left;
+                list.remove(right);
+                return list;
+        }
         // must be MINUS
         return (double)left - (double)right;
     }
     
 	@Override
     public Object visitIfstmt(placeholderParser.IfstmtContext ctx) {
-        System.out.println("visiting if statements");
+        // System.out.println("visiting if statements");
         // System.out.println(ctx.expression());
-        System.out.println(ctx);
+        // System.out.println(ctx);
         // System.out.println(ctx.stm(0).getText());
         int i = 0;
         for (placeholderParser.ExpressionContext var : ctx.expression()) {
             // we are going through each boolean expression of the if and else if statements
             if ((boolean)visit(var)) {
-                System.out.println("evaluated to True");
+                // System.out.println("evaluated to True");
                 return visit(ctx.block(i));
             } else {
-                System.out.println("evaluated to False");
+                // System.out.println("evaluated to False");
             }
             i++;
         }

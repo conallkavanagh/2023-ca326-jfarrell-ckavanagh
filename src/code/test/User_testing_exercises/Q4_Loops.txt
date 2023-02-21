@@ -1,0 +1,13 @@
+i is 1;
+x is [];
+loop 5 times {
+    x is x + i;
+    i is i + 1;
+}
+say x;
+
+z is 1;
+loop 10 times{
+    say z;
+    z is z + 1; 
+}
