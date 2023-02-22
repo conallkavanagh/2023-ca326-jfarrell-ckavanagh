@@ -93,8 +93,8 @@ LESSTHANEQ: 'less than or equal to';
 GREATERTHANEQ: 'greater than or equal to';
 
 SEMICOLON: ';';
-LCURL:  '{';
-RCURL:  '}';
+LCURL:  'do';
+RCURL:  'end';
 LBRAC:  '(';
 RBRAC:  ')';
 
@@ -141,17 +141,17 @@ ifstmt:
 assignstmt: (DATATYPE)? ID ASSIGN expression ;
 
 loop: 'loop' (ID | NUMBER) 'times'
-      DO
+      LCURL
       stm*
-      END
+      RCURL
       ;
 
-block: DO stm* END;
+block: LCURL stm* RCURL;
 
 returnstmt: 'return' expression;
 
 //procedure definitions
-proc_def : 'on' ID '(' (arg (',' arg)*)? ')' DO stm* END;
+proc_def : 'on' ID '(' (arg (',' arg)*)? ')' LCURL stm* RCURL;
 proc_invoke: ID '(' (term (',' term)*)? ')' ;
 
 arg: ID;
