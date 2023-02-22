@@ -1,25 +1,7 @@
-x is False;
+x = True;
 
-
-if x {
+if x do
     say "x is true";
-} else {
+end else do
     say "x is false";
-}
-
-
-
-
-
-
-
-
-
-if (x = False) {
-    say "in else if";
-    say "in else if";
-    say "in else if";
-} 
-else {
-    say "in else";
-}
+end

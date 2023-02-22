@@ -1,11 +1,11 @@
-x is 0;
-y is 1;
-temp is 0;
+x = 0;
+y = 1;
+temp = 0;
 
-loop 20 times {
+loop 20 times do
     say x;
-    temp is x;
-    x is y;
-    y is temp + y;
-}
+    temp = x;
+    x = y;
+    y = temp + y;
+end
 

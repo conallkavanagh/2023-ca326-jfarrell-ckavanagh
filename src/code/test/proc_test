@@ -1,15 +1,15 @@
-on procedure(x,y) {
+on procedure(x,y) do
     say x;
     say y;
-}
+end
 
-on givesthree() {
+on givesthree() do
     return 3;
-}
+end
 
 procedure(1, 2);
 
-x is givesthree();
+x = givesthree();
 
 say x;
 
