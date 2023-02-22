@@ -79,18 +79,18 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
-EQUAL: '=';
-ASSIGN: 'is';
-NOTEQUAL: '!=';
+EQUAL: 'is equal to';
+ASSIGN: '=';
+NOTEQUAL: 'not equal to';
 AND: A N D;
 OR: O R;
 NOT: N O T;
 
 
-LESSTHAN: '<';
-GREATERTHAN: '>';
-LESSTHANEQ: '<=';
-GREATERTHANEQ: '>=';
+LESSTHAN: 'less than';
+GREATERTHAN: 'greater than';
+LESSTHANEQ: 'less than or equal to';
+GREATERTHANEQ: 'greater than or equal to';
 
 SEMICOLON: ';';
 LCURL:  '{';
@@ -141,17 +141,17 @@ ifstmt:
 assignstmt: (DATATYPE)? ID ASSIGN expression ;
 
 loop: 'loop' (ID | NUMBER) 'times'
-      LCURL
+      DO
       stm*
-      RCURL
+      END
       ;
 
-block: LCURL stm* RCURL;
+block: DO stm* END;
 
 returnstmt: 'return' expression;
 
 //procedure definitions
-proc_def : 'on' ID '(' (arg (',' arg)*)? ')' LCURL stm* RCURL;
+proc_def : 'on' ID '(' (arg (',' arg)*)? ')' DO stm* END;
 proc_invoke: ID '(' (term (',' term)*)? ')' ;
 
 arg: ID;
