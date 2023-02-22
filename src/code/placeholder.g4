@@ -62,7 +62,8 @@ BOOL: 'True'|'False';
 
 // conditionals
 IF: 'if';
-END: 'end';
+END: E N D;
+DO: D O;
 ELSE : 'else';
 
 COMPOP: EQUAL
@@ -93,8 +94,8 @@ LESSTHANEQ: 'less than or equal to';
 GREATERTHANEQ: 'greater than or equal to';
 
 SEMICOLON: ';';
-LCURL:  'do';
-RCURL:  'end';
+LCURL:  '{';
+RCURL:  '}';
 LBRAC:  '(';
 RBRAC:  ')';
 
@@ -141,17 +142,17 @@ ifstmt:
 assignstmt: (DATATYPE)? ID ASSIGN expression ;
 
 loop: 'loop' (ID | NUMBER) 'times'
-      LCURL
+      DO
       stm*
-      RCURL
+      END
       ;
 
-block: LCURL stm* RCURL;
+block: DO stm* END;
 
 returnstmt: 'return' expression;
 
 //procedure definitions
-proc_def : 'on' ID '(' (arg (',' arg)*)? ')' LCURL stm* RCURL;
+proc_def : 'on' ID '(' (arg (',' arg)*)? ')' DO stm* END;
 proc_invoke: ID '(' (term (',' term)*)? ')' ;
 
 arg: ID;
