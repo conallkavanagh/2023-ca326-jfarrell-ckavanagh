@@ -1,14 +1,24 @@
 # Technical Manual
 
-** This document contains the general outline that you should adopt for your Functional Specification **
 
-> Michael: Feel free to add your own cover page, including fancy logo of the project 
-
-  
 
 ## Table of contents
 
 A table of contents with pages numbers indicated for all sections / headings should be included.
+1) Introduction
+	- 1.1 Overview
+	- 1.2 Business Context
+	- 1.3 Glossary
+2) General Description
+	- 2.1 Product / System Functions
+	- 2.2 User Characteristics and Objectives
+	- 2.3 Operational Scenarios
+	- 2.4 Constraints
+3) Functional Requirements
+4) System Architecture
+5) High Level Design
+6) Preliminary Schedule
+7) Appendices
 
 ## 1. Introduction
 
@@ -31,18 +41,8 @@ the features of our programming language include:
 - comments, which are prepended with a #
 
 ### 1.2 Business Context  
-Provides an overview of the business organization sponsoring the development of this system / product or in which the system / product will / could be deployed. Note - may not be applicable to all projects 
 
-  
-
-Michael: this may not be relevant to some projects, if it is relevant, talk about why , potential user base, why this is an issue that need to be addressed. Also talk about how it would work in the real world, e.g. is it deployed on campus, is it a cloud b2b application, is it an on-premises application
-
-  
-
-If it is not a business-y application, talk about how it could be used in production, societal benefits, or even how your application could be used or further developed. 
-
-
-Programming is hard. It is especially difficult when starting out, having all these new concepts to learn, and a brand new language on top of that. Our language is designed to help people starting out with programming, with a simple syntax. It can be used to ease people in to programming and can be a transition from very simple, graphical languages such as Scratch [1] or Blockly [2], and to real, text-based programming languages such as Java or Python.
+Programming is hard. It is especially difficult when starting out, having all these new concepts to learn, and a brand new language on top of that. Our language is designed to help people starting out with programming, with a simple syntax. It can be used to ease people in to programming and can be a transition from very simple, graphical languages such as Scratch or Blockly, and to real, text-based programming languages such as Java or Python.
 
 Our language could be used in schools to teach programming basics and will be a benefit to the tech industry as more people will learn to code. It could be further developed in the future by adding other features such as Classes, user input, recursive functions and other features commonly found in most programming languages.
 
@@ -53,26 +53,15 @@ All strange terms, if you can supplement them with links even better, should eit
 
 E.g. SQL – Structured Query Language used to interact with relational databases
 
-Parser
-Interpreter
-Visitor
-Abstract Syntax Tree (AST)
+Parser - A program that parses text input from the user into tokens in a language.
+Interpreter - A program that goes through the tokens produced by the parser in the AST and executes them line by line.
+Visitor - A design pattern used as a standard way to traverse the AST.
+Abstract Syntax Tree (AST) - A tree representation of the different tokens in the language and their semantic meaning.
 
 
 ## 2. General Description
 
 ### 2.1 Product / System Functions  
-Describes the general functionality of the system / product. 
-
-This should be a bullet point list, in more detail than what was shown in section 1 overview 
-
-E,g,
-
--   Register
--   Login in 
--   Do X
--   Do Y 
--   Etc…
 
 - variables, with dynamic typing
 	- supports numbers (floaing point), strings, booleans and lists
@@ -88,21 +77,17 @@ E,g,
 - string concatenation
 
 ### 2.2 User Characteristics and Objectives  
-Describes the features of the user community, including their expected expertise with software systems and the application domain. Explain the objectives and requirements for the system from the user's perspective. It may include a "wish list" of desirable characteristics, along with more feasible solutions that are in line with the business objectives.
-
-Who are the intended users, older people, students etc… what is their technical ability (modest, adequate etc..) 
-
 Users of the language will generally be complete beginners to programming of all ages. Their technical ability should be fairly novice, but be relatively proficient in using their computer, and be able to run programs from the command line.
 
   
 
 ### 2.3 Operational Scenarios  
-This section should describe a set of scenarios that illustrate, from the user's perspective, what will be experienced when utilizing the system under various situations. 
+> This section should describe a set of scenarios that illustrate, from the user's perspective, what will be experienced when utilizing the system under various situations. 
 
-In the article Inquiry-Based Requirements Analysis (IEEE Software, March 1994), scenarios are defined as follows:  
+> In the article Inquiry-Based Requirements Analysis (IEEE Software, March 1994), scenarios are defined as follows:  
 In the broad sense, a scenario is simply a proposed specific use of the system. More specifically, a scenario is a description of one or more end-to-end transactions involving the required system and its environment. Scenarios can be documented in different ways, depending up on the level of detail needed. The simplest form is a use case, which consists merely of a short description with a number attached. More detailed forms are called scripts.  
 
-Describe a “use case” for the system. E,g, A user wants to do X, they log in and do..what ? 
+> Describe a “use case” for the system. E,g, A user wants to do X, they log in and do..what ? 
 
 
 Use case 1: I want to print hello world to the screen.
@@ -118,33 +103,44 @@ Hello World!
 ```
 
 
+Use Case 2: I want to assign a value to a variable
+The user writes the following code:
+```java
+x = 5;
+```
+
+This will assign a number value of 5 to the variable x.
+
+Use Case 3: I want to add my name to the output
+The user can store their name in a variable and print it like so
+```java
+my_name = "Ada";
+output = "Hello " + my_name;
+say output;
+```
+
+Use Case 4: I want to repeat some code multiple times
+The user can repeat code using loops
+```java
+loop 5 times {
+	say "hello world";
+}
+```
+
+Use Case 5: I want to add my items to a list to use later
+```java
+x is [1, 2, 3, 4, 5];
+x = x + 6;
+```
+
+this will make x a list, and append the value 6 to x.
+
 ### 2.4 Constraints  
-Lists general constraints placed upon the design team, including speed requirements, industry protocols, hardware platforms, and so forth. 
-
-Time to complete the project is not a constraint!
-
-It is possible you have no constraints, but think of 
-
--   Software versions – e.g. Python 3.x
-	- Java v17.x
-	- ANTLR v4.x
--   OS
-	- Linux only
--   Specific hardware requires (e.g. raspberry pi)
+- Java v17.x
+- ANTLR v4.x
+- OS - Linux only
 
 ## 3. Functional Requirements
-
-Use case diagram goes here, showing all functional reqs and how they interact
-
-This section lists the functional requirements in ranked order. Functional requirements describes the possible effects of a software system, in other words, what the system must accomplish. Other kinds of requirements (such as interface requirements, performance requirements, or reliability requirements) describe how the system accomplishes its functional requirements. 
-
-As an example, each functional requirement could be specified in a format similar to the following:
-
--   Description - A full description of the requirement.
--   Criticality - Describes how essential this requirement is to the overall system.
--   Technical issues - Describes any design or implementation issues involved in satisfying this requirement.
--   Dependencies with other requirements - Describes interactions with other requirements.
--   Others as appropriate
 
 | Requirement                          | Variables                                                                                                                                                                  |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -216,12 +212,13 @@ As an example, each functional requirement could be specified in a format simila
 | Technical issues                     | Requires a stack in order to separate different scopes in memory. when we go into a new scope we need to push to a stack and when we go out of a scope we need to pop from the stack |
 | Dependencies with other requirements | Function definition, function invocation                                                                                                                                             |
 
-| Requirement                          | Return statements                                                                                                                                 |
+| Requirement                          | Return statements  https://scratch.mit.edu/                                                                                                                               |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Description                          | Return a value and exit the procedure body                                                                                                        |
 | Criticality                          | medium                                                                                                                                            |
 | Technical issues                     | need to differentiate between return statements and other statements in function bodies so we know to exit the function body and return the value |
 | Dependencies with other requirements | function definition, function invocation                                                                                                          |
+
 
 | Requirement                          | Print statements                                      |
 | ------------------------------------ | ----------------------------------------------------- |
@@ -244,32 +241,43 @@ As an example, each functional requirement could be specified in a format simila
 | Technical issues                     | Requires installing dependencies (Java, ANTLR) |
 | Dependencies with other requirements | Java v17.x, ANTLR v4.X                         |
 
-Do not forget to include the boilerplate functional reqs, e.g. log in, log out etc…
-
-For some applications installation may be a functional req 
 
 ## 4. System Architecture
 
-This section describes a high-level overview of the anticipated system architecture showing the distribution functions across (potential) system modules. Architectural components that are reused or 3rd party should be highlighted.
+> This section describes a high-level overview of the anticipated system architecture showing the distribution functions across (potential) system modules. Architectural components that are reused or 3rd party should be highlighted.
 
-Show system arch diagram, one tip to make them look nice, if you’re using a mysql database , include the mysql logo, same for Django, etc…
+> Show system arch diagram, one tip to make them look nice, if you’re using a mysql database , include the mysql logo, same for Django, etc…
 
 
 
 ## 5. High-Level Design
 
-This section should set out the high-level design of the system. It should include one or more system models showing the relationship between system components and the systems and its environment. These might be object models, DFD, etc.
+> This section should set out the high-level design of the system. It should include one or more system models showing the relationship between system components and the systems and its environment. These might be object models, DFD, etc.
 
-Data flow diagrams, class diagrams (if applicable) and sequence diagrams go here !
+> Data flow diagrams, class diagrams (if applicable) and sequence diagrams go here !
 
 ## 6. Preliminary Schedule
 
-This section provides an initial version of the project plan, including the major tasks to be accomplished, their interdependencies, and their tentative start/stop dates. The plan also includes information on hardware, software, and wetware resource requirements. 
+The initial project plan was to create a basic language in the first 2 weeks. We would then, once we had an interpreter up and running expand on our language during weeks 3 and 4, and do most of our user testing in the final 2 weeks of the project, and do any modification based on user feedback in those final weeks.
 
-The project plan should be accompanied by one or more PERT or GANTT charts. 
+We used ANLTR4 in order to create our parser. Which is a domain specific language for writing parsers and it can generate code for you based on the parser rules you give it.
+For our interpreter we were going to write it in Python originally, but after a talk with our supervisor he suggested Java would be a better option. We decided on using Java in the end after careful consideration.
 
-Make sure to leave time for testing in gantt chart
+### GANTT Chart
+![](https://lh3.googleusercontent.com/TXNeD1n3e9R3B3377ir71XZTdpzvjagqTBz_9TPffzWqm9prsNyuneVSei4SvPf_z13Wsmkp5FTIdj2RaRbCLM2krABSlTVrV66ruCl7OLLf026fp45XMamI3iB9imiyEjDlzCBKjBFAQK8CoTzf1AQ)
+
+### PERT Chart
+![](https://lh4.googleusercontent.com/TQayf0cpbgulEpvqxW38bjsBZpEdu2ZZGjmRMO4Y0hsNAyM3MOAUve-uMMlp9FgyFP1OyD6xlyyHZqpLBVTCn1EQe9WF5EDjZHETlCZfUJtPJzsrrCtpqusdjWKycgJ3ttbXiL63xBpbuuQYwmc6QhU)
 
 ## 7. Appendices
 
-Specifies other useful information for understanding the requirements.
+- Language Implementation Patterns - Terence Parr
+- The Definitive ANLTR4 Guide - Terence Parr
+- Crafting Interpreters https://craftinginterpreters.com/contents.html
+- Blockly: https://blockly.games
+- Scratch: https://scratch.mit.edu/
+
+Some inspirations:
+- Applescript: https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/introduction/ASLR_intro.html
+- Lua: https://www.lua.org/
+- Python: https://www.python.org/
