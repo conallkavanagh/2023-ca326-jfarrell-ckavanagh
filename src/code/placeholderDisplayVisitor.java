@@ -229,34 +229,31 @@ public class placeholderDisplayVisitor extends placeholderBaseVisitor<Object>{
         } else if (left instanceof String && right instanceof String) {
             stringtype = true;
         } else if (left instanceof Double && right instanceof Double) {
-            System.out.println("fsafg");
             numtype = true;
         }
 
         String op = ctx.op.getText();
-        System.out.println(op.equals("="));
+        // System.out.println(op.equals("="));
 
-        if (op.equals("=")) {
-            System.out.println("sdghj");
+        if (op.equals("is equal to")) {
             if (booltype) {
                 return (boolean)left == (boolean)right;
             } else if (stringtype) {
                 return (String)left  == (String)right;
             } else if (numtype) {
-                System.out.println("sdghj");
                 return ((double)left  == (double)right);
             }
-        } else if (op.equals("!=")) {
+        } else if (op.equals("not equal to")) {
             if      (booltype)   return (boolean)left != (boolean)right;
             else if (stringtype) return (String)left  != (String)right;
             else if (numtype)    return (double)left  != (double)right;
-        } else if (op.equals("<")) {
+        } else if (op.equals("less than")) {
             if (numtype)         return (double)left  < (double)right;
-        } else if (op.equals(">")) {
+        } else if (op.equals("greater than")) {
             if (numtype)         return (double)left  > (double)right;
-        } else if (op.equals(">=")) {
+        } else if (op.equals("greater than or equal to")) {
             if (numtype)         return (double)left  >= (double)right;
-        } else if (op.equals("<=")) {
+        } else if (op.equals("less than or equal to")) {
             if (numtype)         return (double)left  <= (double)right;
         }
         return null;
