@@ -232,15 +232,15 @@ We had problems at first in creating functions and ensuring that they were in a 
 
 As the language uses antlr4 which can be run on windows machines it should be possible for the language to function, however, we did not make the language with windows machines in mind as we have been using WSL for language creation and testing, It is assumed that you will be installing this on a Linux machine or have WSL installed.
 	
-Install WSL (https://learn.microsoft.com/en-us/windows/wsl/install) (For windows users)
-Install Java (version 17.X or higher): https://www.java.com/en/download/help/download_options.html 
-Install ANTLR4 using this guide: https://github.com/antlr/antlr4/blob/master/doc/getting-started.md#unix 
-Clone the repository at: https://gitlab.computing.dcu.ie/farrej82/2023-ca326-jfarrell-ckavanagh/ 
-In your terminal go to the repository root folder
-`cd src/code`
-`./run.sh`
-You can now run the interpreter by typing `java placeholder path/to/file
-Try `java placeholder test/hello_world` for a simple hello-world example
+1. Install WSL (https://learn.microsoft.com/en-us/windows/wsl/install) (For windows users)
+2. Install Java (version 17.X or higher): https://www.java.com/en/download/help/download_options.html 
+3. Install ANTLR4 using this guide: https://github.com/antlr/antlr4/blob/master/doc/getting-started.md#unix 
+4. Clone the repository at: https://gitlab.computing.dcu.ie/farrej82/2023-ca326-jfarrell-ckavanagh/ 
+5. In your terminal go to the repository root folder.
+6. type `cd src/code` into the command line. This takes you to where you can run the code.
+7. type `./run.sh` into the command line. This generates and compiles the files needed for the language to work.
+8. You can now run the interpreter by typing `java placeholder path/to/file.
+9. Try `java placeholder test/hello_world` for a simple hello-world example.
 
 ## 7 Testing
 
