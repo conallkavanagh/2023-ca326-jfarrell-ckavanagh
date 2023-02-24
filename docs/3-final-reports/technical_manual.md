@@ -24,13 +24,7 @@ A table of contents with pages numbers indicated for all sections / headings sho
 
 ### 1.1 Overview  
 
-Provides a brief overview of the system / product to be developed. It should include a description of the need for the system, briefly describe its functions and explain how it will work with other systems (if appropriate).
-
 We have developed a programming language that is meant to be easy to learn by beginners. We designed the language to use grammer from natural language as a way to make it easier for beginners to understand what is going on. The language is dynamically typed and imperative. It supports variables, loops, if statements and functions.
-
-Michael: here you talk overall about the system, like a dragons den pitch, list what a user can do on your platform (pref as bullet points) 
-
-e.g. 
 
 the features of our programming language include:
 - variables, with dynamic typing
@@ -47,16 +41,11 @@ Programming is hard. It is especially difficult when starting out, having all th
 Our language could be used in schools to teach programming basics and will be a benefit to the tech industry as more people will learn to code. It could be further developed in the future by adding other features such as Classes, user input, recursive functions and other features commonly found in most programming languages.
 
 ### 1.3 Glossary  
-Define and technical terms used in this document. Only include those with which the reader may not be familiar.
 
-All strange terms, if you can supplement them with links even better, should either be bullet points, or a table
-
-E.g. SQL – Structured Query Language used to interact with relational databases
-
-Parser - A program that parses text input from the user into tokens in a language.
-Interpreter - A program that goes through the tokens produced by the parser in the AST and executes them line by line.
-Visitor - A design pattern used as a standard way to traverse the AST.
-Abstract Syntax Tree (AST) - A tree representation of the different tokens in the language and their semantic meaning.
+- Parser - A program that parses text input from the user into tokens in a language.
+- Interpreter - A program that goes through the tokens produced by the parser in the AST and executes them line by line.
+- Visitor - A design pattern used as a standard way to traverse the AST.
+- Abstract Syntax Tree (AST) - A tree representation of the different tokens in the language and their semantic meaning.
 
 
 ## 2. General Description
@@ -77,6 +66,7 @@ Abstract Syntax Tree (AST) - A tree representation of the different tokens in th
 - string concatenation
 
 ### 2.2 User Characteristics and Objectives  
+
 Users of the language will generally be complete beginners to programming of all ages. Their technical ability should be fairly novice, but be relatively proficient in using their computer, and be able to run programs from the command line.
 
   
