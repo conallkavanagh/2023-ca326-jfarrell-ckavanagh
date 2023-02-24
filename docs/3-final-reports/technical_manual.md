@@ -2,16 +2,16 @@
 
 ## 0. Table of contents
 
-1) Introduction
+1. Introduction
 - 1.1 Overview
 - 1.2 Motivation
 - 1.3 Glossary
-2) System Architecture
-3) High-Level Design
-4) Functional Requirements
-5) Problems and Resolutions
-6) Installation Guide
-7) Testing
+2. System Architecture
+3. High-Level Design
+4. Functional Requirements
+5. Problems and Resolutions
+6. Installation Guide
+7. Testing
 
 
 ## 1. Introduction
